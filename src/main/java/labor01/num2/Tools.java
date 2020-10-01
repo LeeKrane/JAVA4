@@ -7,11 +7,11 @@ import java.util.List;
 
 public class Tools {
 	
-	// TODO: get resources from class ( "ClassName".class.getResourceAsStream(...) + InputStreamReader )
+	// TODO: get resources from class on correctedFilename ( "ClassName".class.getResourceAsStream(...) + InputStreamReader )
 	
 	public static void main (String[] args) {
 		try {
-			correctQuadrants("src/main/resources/labor01/punkte.dat", "src/main/resources/labor01/punkte_korr.dat");
+			correctQuadrants("/labor01/punkte.dat", "src/main/resources/labor01/punkte_korr.dat");
 			List<Point> points = readPointsFromQuadrant("src/main/resources/labor01/punkte_korr.dat", 1);
 			
 			for (Point p : points) {
@@ -23,7 +23,7 @@ public class Tools {
 	}
 	
 	static void correctQuadrants (String filename, String correctedFilename) throws IOException {
-		try (DataInputStream dis = new DataInputStream(new FileInputStream(filename));
+		try (DataInputStream dis = new DataInputStream(Tools.class.getResourceAsStream(filename));
 			 DataOutputStream dos = new DataOutputStream(new FileOutputStream(correctedFilename))) {
 			while (dis.available()>= 20) {
 				dis.readInt();
