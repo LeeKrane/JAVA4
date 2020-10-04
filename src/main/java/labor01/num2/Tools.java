@@ -17,6 +17,11 @@ public class Tools {
 			for (Point p : points) {
 				System.out.println(p);
 			}
+			
+			for (int i = 1; i <= 4; i++) {
+				points = readPointsFromQuadrant("src/main/resources/labor01/punkte_korr.dat", i);
+				System.out.println("Quadrant " + i + ": " + points.size());
+			}
 		} catch (IOException e) {
 			System.err.println(e);
 		}
@@ -75,5 +80,13 @@ class Point {
 	@Override
 	public String toString () {
 		return "(" + x + "; " + y + ")";
+	}
+	
+	public double getX () {
+		return x;
+	}
+	
+	public double getY () {
+		return y;
 	}
 }
