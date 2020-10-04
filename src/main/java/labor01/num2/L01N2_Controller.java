@@ -81,8 +81,6 @@ public class L01N2_Controller implements Initializable {
 				}
 			}
 			
-			//final NumberAxis xAxis = new NumberAxis(getMinMaxPerQuadrant(quadrant, true, true), getMinMaxPerQuadrant(quadrant, true, false), 10.0);
-			//final NumberAxis yAxis = new NumberAxis(getMinMaxPerQuadrant(quadrant, false, true), getMinMaxPerQuadrant(quadrant, false, false), 10.0);
 			final NumberAxis xAxis = new NumberAxis(Integer.parseInt(xMin.getText()), Integer.parseInt(xMax.getText()), 10.0);
 			final NumberAxis yAxis = new NumberAxis(Integer.parseInt(yMin.getText()), Integer.parseInt(yMax.getText()), 10.0);
 			
