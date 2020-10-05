@@ -7,6 +7,10 @@ public class Badegast extends Thread {
 	private int ticketNr;
 	private static final Random RANDOM = new Random();
 	
+	private final int RANDOM_BASE = 5000;
+	private final int RANDOM_ADD_ENTRY = 500;
+	private final int RANDOM_ADD_EXIT = 2000;
+	
 	public Badegast (String name, Schwimmbad schwimmbad) {
 		super(name);
 		this.schwimmbad = schwimmbad;
@@ -15,9 +19,9 @@ public class Badegast extends Thread {
 	@Override
 	public void run () {
 		try {
-			sleep(RANDOM.nextInt(51) + 500);
+			sleep(RANDOM.nextInt(RANDOM_BASE + 1) + RANDOM_ADD_ENTRY);
 			schwimmbad.enter(this);
-			sleep(RANDOM.nextInt(51) + 2000);
+			sleep(RANDOM.nextInt(RANDOM_BASE + 1) + RANDOM_ADD_EXIT);
 			schwimmbad.leave(this);
 		} catch (InterruptedException e) {
 			System.err.println(e.getMessage());

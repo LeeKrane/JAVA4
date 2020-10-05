@@ -6,7 +6,7 @@ import java.util.Set;
 public class Schwimmbad {
 	private final int maxLiegen;
 	private int ticketNr = 1;
-	private Set<Badegast> badegaeste = new HashSet<>();
+	private final Set<Badegast> badegaeste = new HashSet<>();
 	
 	public Schwimmbad (int maxLiegen) {
 		this.maxLiegen = maxLiegen;

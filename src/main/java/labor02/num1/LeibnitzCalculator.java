@@ -1,6 +1,8 @@
 package labor02.num1;
 
-public class Calculator {
+import java.util.Arrays;
+
+public class LeibnitzCalculator {
 	public static void main (String[] args) {
 		try {
 			System.out.println(calculatePiWithNThreads(100000, 7));
@@ -13,8 +15,7 @@ public class Calculator {
 		if (threadCount < 1)
 			throw new IllegalArgumentException("The thread count must be at least 1!");
 		
-		PartialSumThread[] partialSums = new PartialSumThread[threadCount];
-		Thread[] threads = new Thread[threadCount];
+		PartialSum[] partialSums = new PartialSum[threadCount];
 		int remainingRange = limitExclusive;
 		int range, start, end;
 		
@@ -23,20 +24,37 @@ public class Calculator {
 			start = limitExclusive - remainingRange;
 			end = start + range;
 			remainingRange -= range;
-			System.out.format("Thread-%d: [%5d, %5d] => %d\n", i, start, end - 1, range); // end - 1, weil das ende exklusive ist.
+			System.out.format("Thread-%d: [%5d, %5d] => %d%n", i, start, end - 1, range);
 			
-			partialSums[i] = new PartialSumThread(start, end);
-			threads[i] = new Thread(partialSums[i]);
-			threads[i].start();
+			partialSums[i] = new PartialSum(new PartialSumThread(start, end));
+			partialSums[i].getThread().start();
 		}
 		
 		double pi = 0.0;
 		for (int i = 0; i < threadCount; i++) {
-			if (threads[i].isAlive())
-				threads[i].join();
-			pi += partialSums[i].getSum() * 4;
+			if (partialSums[i].getThread().isAlive())
+				partialSums[i].getThread().join();
+			pi += partialSums[i].getSum();
 		}
-		return pi;
+		return pi * 4;
+	}
+}
+
+class PartialSum {
+	private final Thread thread;
+	private final PartialSumThread partialSum;
+	
+	public PartialSum (PartialSumThread partialSum) {
+		this.partialSum = partialSum;
+		this.thread = new Thread(partialSum);
+	}
+	
+	public Thread getThread () {
+		return thread;
+	}
+	
+	public double getSum () {
+		return partialSum.getSum();
 	}
 }
 
@@ -44,6 +62,7 @@ class PartialSumThread implements Runnable {
 	private final int min;
 	private final int max;
 	private double sum;
+	private boolean done = false;
 	
 	public PartialSumThread (int min, int max) {
 		if (min < 0)
@@ -55,10 +74,13 @@ class PartialSumThread implements Runnable {
 	@Override
 	public void run () {
 		for (int i = min; i < max; i++)
-			sum += Math.pow(-1.0, i) / (2*i + 1);
+			sum += ((i % 2 == 0) ? 1.0 : -1.0) / (2*i + 1);
+		done = true;
 	}
 	
 	public double getSum () {
+		if (!done)
+			throw new IllegalStateException();
 		return sum;
 	}
 }

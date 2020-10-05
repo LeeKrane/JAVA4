@@ -12,6 +12,10 @@ public class PrimeFinder implements Runnable {
 	final int delay;
 	private final List<Long> primes;
 	
+	private static final int DAEMON_DELAY = 500;
+	private static final int THREAD_DELAY = 1000;
+	private static final int PRIME_MAX = 50;
+	
 	public PrimeFinder (int start, int end, int delay) {
 		this.start = start;
 		this.end = end;
@@ -29,31 +33,43 @@ public class PrimeFinder implements Runnable {
 		}
 	}
 	
-	synchronized int countRunningCheckers () {
-		return (int) threads.stream().filter(Thread::isAlive).count();
+	int countRunningCheckers () {
+		synchronized (primes) {
+			return (int) threads.stream()
+					.filter(Thread::isAlive)
+					.count();
+		}
 	}
 	
-	synchronized void addPrime (long prime) {
-		primes.add(prime);
+	void addPrime (long prime) {
+		synchronized (primes) {
+			primes.add(prime);
+		}
+	}
+	
+	private void out () {
+		synchronized (primes) {
+			System.out.println("Active Checkers: " + countRunningCheckers());
+			Collections.sort(primes);
+			System.out.println(primes);
+		}
 	}
 	
 	@Override
 	public void run () {
-		findPrimes();
 		do {
-			System.out.println("Active Checkers: " + countRunningCheckers());
-			Collections.sort(primes);
-			System.out.println(primes);
+			out();
 			try {
-				Thread.sleep(500);
+				Thread.sleep(DAEMON_DELAY);
 			} catch (InterruptedException e) {
-				System.err.println(e);
+				System.err.println(e.getMessage());
 			}
 		} while (countRunningCheckers() > 0);
 	}
 	
 	public static void main (String[] args) {
-		PrimeFinder primeFinder = new PrimeFinder(0, 50, 1000);
+		PrimeFinder primeFinder = new PrimeFinder(0, PRIME_MAX, THREAD_DELAY);
+		primeFinder.findPrimes();
 		primeFinder.run();
 	}
 }
@@ -78,13 +94,12 @@ class PrimeTest implements Runnable {
 				|| (testPrime > 2
 					&& (testPrime % 2) != 0
 					&& IntStream.rangeClosed(3, (int) Math.sqrt(testPrime))
-							.filter(n -> {
+							.peek(n -> {
 								try {
 									Thread.sleep(primeFinder.delay);
 								} catch (InterruptedException e) {
-									System.err.println(e);
+									System.err.println(e.getMessage());
 								}
-								return n % 2 != 0;
 							})
 							.noneMatch(n -> (testPrime % n == 0)));
 	}

@@ -11,7 +11,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -61,8 +60,7 @@ public class L01N2_Controller implements Initializable {
 					alert(Alert.AlertType.ERROR, "No file", "No file", "The given file location is not a file!", ButtonType.OK);
 				else
 					plot(selectedFile);
-			}
-			else
+			} else
 				alert(Alert.AlertType.ERROR, "File doesn't exist", "File doesn't exist", "The given file does not exist!", ButtonType.OK);
 		} catch (NullPointerException e) {
 			alert(Alert.AlertType.ERROR, "No file selected", "No file selected", "There was no file selected, please select a file!", ButtonType.OK);
@@ -81,6 +79,7 @@ public class L01N2_Controller implements Initializable {
 				}
 			}
 			
+			correctMinMax();
 			final NumberAxis xAxis = new NumberAxis(Integer.parseInt(xMin.getText()), Integer.parseInt(xMax.getText()), 10.0);
 			final NumberAxis yAxis = new NumberAxis(Integer.parseInt(yMin.getText()), Integer.parseInt(yMax.getText()), 10.0);
 			
@@ -104,14 +103,18 @@ public class L01N2_Controller implements Initializable {
 		}
 	}
 	
-	private int getMinMaxPerQuadrant (int quadrant, boolean x, boolean min) {
-		return switch (quadrant) {
-			case 1 -> min ? 0 : 50;
-			case 2 -> min ? (x ? -50 : 0) : (x ? 0 : 50);
-			case 3 -> min ? -50 : 0;
-			case 4 -> min ? (x ? 0 : -50) : (x ? 50 : 0);
-			default -> 0;
-		};
+	private void correctMinMax () {
+		String h;
+		if (Integer.parseInt(xMin.getText()) > Integer.parseInt(xMax.getText())) {
+			h = xMax.getText();
+			xMax.setText(xMin.getText());
+			xMin.setText(h);
+		}
+		if (Integer.parseInt(yMin.getText()) > Integer.parseInt(yMax.getText())) {
+			h = yMax.getText();
+			yMax.setText(yMin.getText());
+			yMin.setText(h);
+		}
 	}
 	
 	private void alert (Alert.AlertType alertType, String title, String header, String content, ButtonType... buttonTypes) {
@@ -126,7 +129,8 @@ public class L01N2_Controller implements Initializable {
 		fileChooser = new FileChooser();
 		fileChooser.setTitle("Select a data file (*.dat) containing points.");
 		fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Data Files", "*.dat"));
-		fileChooser.setInitialDirectory(new File("C:\\Developement\\Java\\JAVA4\\src\\main\\resources\\labor01"));
+		// This line is for quick testing purposes only
+		// fileChooser.setInitialDirectory(new File("C:\\Data\\IntelliJ\\Projects\\JAVA4\\src\\main\\resources\\labor01"));
 	}
 	
 	private void choiceBoxSetup () {
