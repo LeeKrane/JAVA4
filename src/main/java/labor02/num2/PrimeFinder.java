@@ -8,8 +8,8 @@ import java.util.stream.IntStream;
 public class PrimeFinder implements Runnable {
 	private final int start;
 	private final int end;
-	private List<Thread> threads;
-	final int delay;
+	private final List<Thread> threads = new ArrayList<>();
+	private final int delay;
 	private final List<Long> primes;
 	
 	private static final int DAEMON_DELAY = 500;
@@ -24,7 +24,7 @@ public class PrimeFinder implements Runnable {
 	}
 	
 	private void findPrimes () {
-		threads = new ArrayList<>();
+		threads.clear();
 		
 		for (int i = start; i < end; i++) {
 			Thread thread = new Thread(new PrimeTest(i, this));
@@ -72,6 +72,10 @@ public class PrimeFinder implements Runnable {
 		primeFinder.findPrimes();
 		primeFinder.run();
 	}
+	
+	public int getDelay () {
+		return delay;
+	}
 }
 
 class PrimeTest implements Runnable {
@@ -96,7 +100,7 @@ class PrimeTest implements Runnable {
 					&& IntStream.rangeClosed(3, (int) Math.sqrt(testPrime))
 							.peek(n -> {
 								try {
-									Thread.sleep(primeFinder.delay);
+									Thread.sleep(primeFinder.getDelay());
 								} catch (InterruptedException e) {
 									System.err.println(e.getMessage());
 								}

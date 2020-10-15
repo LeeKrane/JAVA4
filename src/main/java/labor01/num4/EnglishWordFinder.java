@@ -1,47 +1,25 @@
 package labor01.num4;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.time.Duration;
-import java.time.Instant;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
+
+import static utility.StringTools.anagram;
+import static utility.StringTools.readWords;
 
 public class EnglishWordFinder {
-	private static final int PATTERN_LENGTH = 9;
-	
 	public static void main (String[] args) {
-		Map<Integer, Character> letters = new TreeMap<>();
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(EnglishWordFinder.class.getResourceAsStream("/labor01/words.txt")))) {
-			Set<String> words = reader.lines()
-					.map(String::toUpperCase)
-					.filter(word -> word.length() == PATTERN_LENGTH && word.chars().distinct().count() == PATTERN_LENGTH)
-					.collect(Collectors.toSet());
+		try {
+			Set<String> words = readWords("words.txt", 9, true);
 			
 			for (String word : words) {
-				letters.clear();
-				
-				for (int i = 0; i < word.length(); i++)
-					letters.put(i + 1, word.charAt(i));
-				
-				final String word2 = fetchWord(new int[] {2, 3, 1, 4, 5, 6, 7, 8, 9}, letters);
-				final String word3 = fetchWord(new int[] {8, 9, 3, 1, 2, 4, 5, 6, 7}, letters);
+				final String word2 = anagram(word, new int[] {2, 3, 1, 4, 5, 6, 7, 8, 9});
+				final String word3 = anagram(word, new int[] {8, 9, 3, 1, 2, 4, 5, 6, 7});
 				
 				if (words.contains(word2) && words.contains(word3))
-					System.out.println(word + '\n' + word2 + '\n' + word3 + '\n');
+					System.out.println(word + " - " + word2 + " - " + word3);
 			}
 		} catch (IOException e) {
 			System.err.println(e.getMessage());
 		}
-	}
-	
-	private static String fetchWord (int[] pattern, Map<Integer, Character> letters) {
-		StringBuilder builder = new StringBuilder();
-		for (int i : pattern)
-			builder.append(letters.get(i));
-		return builder.toString();
 	}
 }
