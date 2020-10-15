@@ -20,18 +20,6 @@ public class L01N3_Controller implements Initializable {
 	private ChoiceBox<Integer> cb;
 	
 	@FXML
-	private RadioButton rbAdd;
-	
-	@FXML
-	private RadioButton rbSub;
-	
-	@FXML
-	private RadioButton rbMul;
-	
-	@FXML
-	private RadioButton rbDiv;
-	
-	@FXML
 	private TextField tf;
 	
 	@FXML

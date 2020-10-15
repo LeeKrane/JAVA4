@@ -1,7 +1,5 @@
 package labor02.num1;
 
-import java.util.Arrays;
-
 public class LeibnitzCalculator {
 	public static void main (String[] args) {
 		try {

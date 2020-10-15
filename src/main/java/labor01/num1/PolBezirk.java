@@ -40,14 +40,6 @@ public class PolBezirk implements Comparable<PolBezirk> {
 				";" + einwohnerzahl;
 	}
 	
-	public int getKennzeichen () {
-		return kennzeichen;
-	}
-	
-	public String getBezirksname () {
-		return bezirksname;
-	}
-	
 	public int getEinwohnerzahl () {
 		return einwohnerzahl;
 	}
