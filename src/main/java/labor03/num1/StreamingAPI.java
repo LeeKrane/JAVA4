@@ -11,10 +11,6 @@ import java.util.stream.Stream;
 
 public class StreamingAPI {
 	private static final Random RANDOM = new Random();
-	/*
-		System.out.println("Aufgabe ");
-		System.out.println();
-	 */
 	
 	public static void main (String[] args) {
 		a();
@@ -28,6 +24,8 @@ public class StreamingAPI {
 		i();
 		euler25();
 	}
+	
+	//TODO: Main -> JUnit5 Tests
 	
 	private static void euler25 () {
 		System.out.println("Project Euler 25");
