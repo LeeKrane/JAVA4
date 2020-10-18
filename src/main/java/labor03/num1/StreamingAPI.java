@@ -26,13 +26,16 @@ public class StreamingAPI {
 		g();
 		h();
 		i();
+		euler25();
+	}
+	
+	private static void euler25 () {
 		System.out.println("Project Euler 25");
 		FibonacciSupplier fibSup = new FibonacciSupplier();
 		Stream.generate(fibSup)
 				.filter(big -> big.toString().length() >= 1000)
 				.limit(1)
 				.forEach(big -> System.out.println(fibSup.getI()));
-		System.out.println();
 	}
 	
 	private static void i () {
@@ -72,7 +75,7 @@ public class StreamingAPI {
 				.stream()
 				.map(s -> s.chars().filter(c -> c == '1').count())
 				.forEach(System.out::println);
-		/*
+		/* Solution without .reduce:
 		System.out.println(LongStream.rangeClosed(1, 1000)
 				.map(i -> String.valueOf(i).chars()
 						.filter(c -> c == '1')
