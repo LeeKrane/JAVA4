@@ -21,6 +21,7 @@ public class MinimalNetwork {
 			
 			System.out.println("Maximum Saving of the small minimal network: " + minimalNetworkSmall.getMaximumSaving());
 			System.out.println("Maximum Saving of the big minimal network: " + minimalNetworkBig.getMaximumSaving());
+			System.out.println(getTotalWeightOf(minimalNetworkBig.edges));
 		} catch (IOException e) {
 			System.err.println("Error: " + e.getMessage());
 		}
