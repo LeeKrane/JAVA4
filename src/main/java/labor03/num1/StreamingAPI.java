@@ -2,6 +2,7 @@ package labor03.num1;
 
 import java.math.BigInteger;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Random;
 import java.util.function.Supplier;
 import java.util.stream.DoubleStream;
@@ -12,142 +13,161 @@ import java.util.stream.Stream;
 public class StreamingAPI {
 	private static final Random RANDOM = new Random();
 	
-	public static void main (String[] args) {
-		a();
-		b();
-		c();
-		d();
-		e();
-		f();
-		g();
-		h();
-		i();
-		euler25();
-	}
-	
-	//TODO: Main -> JUnit5 Tests
-	
-	private static void euler25 () {
+	static int euler25 () {
 		System.out.println("Project Euler 25");
 		FibonacciSupplier fibSup = new FibonacciSupplier();
-		Stream.generate(fibSup)
+		return Stream.generate(fibSup)
 				.filter(big -> big.toString().length() >= 1000)
 				.limit(1)
-				.forEach(big -> System.out.println(fibSup.getI()));
+				.mapToInt(big -> fibSup.getCounter())
+				.peek(i -> System.out.println(i + "\n"))
+				.findFirst()
+				.orElse(0);
 	}
 	
-	private static void i () {
+	static int i_factorialSupplierReworked (int pow) {
+		if (pow < 0)
+			throw new IllegalArgumentException();
 		System.out.println("Aufgabe 9/i");
 		FactorialSupplier facSup = new FactorialSupplier();
-		Stream.generate(facSup)
-				.filter(big -> big.compareTo(BigInteger.TEN.pow(10000)) > 0)
+		return Stream.generate(facSup)
+				.filter(big -> big.compareTo(BigInteger.TEN.pow(pow)) > 0)
 				.limit(1)
-				.forEach(big -> System.out.println(facSup.getI()));
-		System.out.println();
+				.mapToInt(big -> facSup.getCounter())
+				.peek(i -> System.out.println(i + "\n"))
+				.findFirst()
+				.orElse(0);
 	}
 	
-	private static void h () {
+	static BigInteger h_factorialSupplier (int len) {
+		if (len < 1)
+			throw new IllegalArgumentException();
 		System.out.println("Aufgabe 8/h");
-		Stream.generate(new FactorialSupplier())
-				.filter(big -> big.toString().length() > 99)
+		return Stream.generate(new FactorialSupplier())
+				.filter(big -> big.toString().length() >= len)
 				.limit(1)
-				.forEach(System.out::println);
-		System.out.println();
+				.peek(big -> System.out.println(big + "\n"))
+				.findFirst()
+				.orElse(BigInteger.ZERO);
 	}
 	
-	private static void g () {
+	static long[] g_numberRow (int len) {
+		if (len < 1)
+			throw new IllegalArgumentException();
 		System.out.println("Aufgabe 7/g");
 		// 1, 2, 6, 42, ...
-		LongStream.iterate(1, i -> i * (i + 1))
-				.limit(6)
-				.forEach(l -> System.out.print(l + " "));
+		long[] ret = LongStream.iterate(1, i -> i * (i + 1))
+				.limit(len)
+				.peek(l -> System.out.print(l + " "))
+				.toArray();
 		System.out.println('\n');
+		return ret;
 	}
 	
-	private static void f () {
+	static long f_oneCountInBigNumber (int start, int end, char ch) {
 		System.out.println("Aufgabe 6/f");
-		IntStream.rangeClosed(1, 1000)
-				.boxed()
-				.map(String::valueOf)
+		Optional<Long> optRet = IntStream.rangeClosed(start, end)
+				.mapToObj(String::valueOf)
 				.reduce((a, b) -> a + b)
 				.stream()
-				.map(s -> s.chars().filter(c -> c == '1').count())
-				.forEach(System.out::println);
+				.map(s -> s.chars().filter(c -> c == ch).count())
+				.findFirst();
 		/* Solution without .reduce:
-		System.out.println(LongStream.rangeClosed(1, 1000)
+		long ret = LongStream.rangeClosed(start, end)
 				.map(i -> String.valueOf(i).chars()
-						.filter(c -> c == '1')
+						.filter(c -> c == ch)
 						.count())
-				.sum());
+				.sum();
 		 */
-		System.out.println();
+		long ret = optRet.orElse(0L);
+		System.out.println(ret == 0L ? "Error\n" : ret + "\n");
+		return ret;
 	}
 	
-	private static void e () {
+	static long e_factorial (int f) {
+		if (f < 3) {
+			if (f == 1) return 1;
+			else if (f == 2) return 2;
+			else throw new IllegalArgumentException();
+		}
 		System.out.println("Aufgabe 5/e");
-		System.out.println(LongStream.rangeClosed(2, 20)
-				.reduce(1, (a, b) -> a * b));
-		System.out.println();
+		long ret = LongStream.rangeClosed(2, f)
+				.reduce(1, (a, b) -> a * b);
+		System.out.println(ret + "\n");
+		return ret;
 	}
 	
-	private static void d () {
+	static int[] d_distinctSortedIntArray (int[] intArr) {
+		if (intArr.length == 0)
+			throw new IllegalArgumentException();
 		System.out.println("Aufgabe 4/d");
-		Arrays.stream(new int[]{8, 6, 1, 8, 3, 9, 7, 3, 5, 13, 8, 1, 4, 5})
+		int[] ret = Arrays.stream(intArr)
 				.distinct()
 				.filter(i -> i % 2 != 0)
 				.map(i -> (int) Math.pow(i, 2))
 				.sorted()
-				.forEach(i -> System.out.print(i + " "));
+				.peek(i -> System.out.print(i + " "))
+				.toArray();
 		System.out.println('\n');
+		return ret;
 	}
 	
-	private static void c () {
+	static int[] c_lottoNumberGenerator () {
 		System.out.println("Aufgabe 3/c");
-		IntStream.generate(() -> Math.abs(RANDOM.nextInt(45)) + 1)
+		int[] ret = IntStream.generate(() -> Math.abs(RANDOM.nextInt(45)) + 1)
 				.distinct()
 				.limit(6)
 				.sorted()
-				.forEach(i -> System.out.print(i + " "));
+				.peek(i -> System.out.print(i + " "))
+				.toArray();
 		System.out.println('\n');
+		return ret;
 	}
 	
-	private static void b () {
+	static double b_calculateSum (int range) {
+		if (range < 1)
+			throw new IllegalArgumentException();
 		System.out.println("Aufgabe 2/b");
-		System.out.println(DoubleStream.iterate(1, i -> i + 1)
-				.limit(100)
+		double ret = DoubleStream.iterate(1, i -> i + 1)
+				.limit(range)
 				.map(i -> 1/((i+1)*(i+2)))
-				.sum());
-		System.out.println();
+				.sum();
+		System.out.println(ret + '\n');
+		return ret;
 	}
 	
-	private static void a () {
+	static int[] a_unevenPowers (int start, int end) {
+		if (start < 1 || end < start)
+			throw new IllegalArgumentException();
 		System.out.println("Aufgabe 1/a");
-		IntStream.rangeClosed(1, 20)
+		int[] ret = IntStream.rangeClosed(start, end)
 				.filter(i -> i % 2 != 0)
 				.map(i -> (int) Math.pow(i, 2))
-				.forEach(i -> System.out.print(i + " "));
+				.peek(i -> System.out.print(i + " "))
+				.toArray();
 		System.out.println('\n');
+		return ret;
 	}
 }
 
 class FactorialSupplier implements Supplier<BigInteger> {
-	private int i = 0;
+	private int counter = 0;
 	private BigInteger factorial = BigInteger.ONE;
 	
 	@Override
 	public BigInteger get() {
-		factorial = factorial.multiply(BigInteger.valueOf(++i));
+		factorial = factorial.multiply(BigInteger.valueOf(++counter));
 		return factorial;
 	}
 	
 	// For Number 9/i
-	public int getI () {
-		return i;
+	public int getCounter () {
+		return counter;
 	}
 }
 
 class FibonacciSupplier implements Supplier<BigInteger> {
-	private int i = 0;
+	private int counter = 0;
 	private BigInteger current = BigInteger.ONE;
 	private BigInteger previous = BigInteger.ZERO;
 	
@@ -156,11 +176,11 @@ class FibonacciSupplier implements Supplier<BigInteger> {
 		BigInteger result = current;
 		current = current.add(previous);
 		previous = result;
-		i++;
+		counter++;
 		return result;
 	}
 	
-	public int getI () {
-		return i;
+	public int getCounter () {
+		return counter;
 	}
 }

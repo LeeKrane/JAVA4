@@ -1,5 +1,7 @@
 package labor03.num2;
 
+import java.util.Objects;
+
 /**
  *
  * @author reio
@@ -47,5 +49,22 @@ public class Schueler {
   @Override
   public String toString () {
     return String.format("%s/%02d %s %s %c", klasse, nr, nachname, vorname, geschlecht);
+  }
+  
+  @Override
+  public boolean equals (Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Schueler schueler = (Schueler) o;
+    return nr == schueler.nr &&
+            geschlecht == schueler.geschlecht &&
+            Objects.equals(klasse, schueler.klasse) &&
+            Objects.equals(nachname, schueler.nachname) &&
+            Objects.equals(vorname, schueler.vorname);
+  }
+  
+  @Override
+  public int hashCode () {
+    return Objects.hash(klasse, nr, nachname, vorname, geschlecht);
   }
 }

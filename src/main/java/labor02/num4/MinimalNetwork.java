@@ -34,16 +34,20 @@ public class MinimalNetwork {
 		createTerritories();
 		
 		while (territories.size() > 1) {
-			Edge edge = initialEdges.pollFirst();
-			
-			Set<Integer> node1Territory = getTerritoryOfNode(Objects.requireNonNull(edge).getNode1());
-			Set<Integer> node2Territory = getTerritoryOfNode(edge.getNode2());
-			
-			if (!node1Territory.contains(edge.getNode2())) {
-				edges.add(edge);
-				node1Territory.addAll(node2Territory);
-				territories.remove(node2Territory);
-			}
+			uniteTerritories(initialEdges);
+		}
+	}
+	
+	private void uniteTerritories (TreeSet<Edge> initialEdges) {
+		Edge edge = initialEdges.pollFirst();
+		
+		Set<Integer> node1Territory = getTerritoryOfNode(Objects.requireNonNull(edge).getNode1());
+		Set<Integer> node2Territory = getTerritoryOfNode(edge.getNode2());
+		
+		if (!node1Territory.contains(edge.getNode2())) {
+			edges.add(edge);
+			node1Territory.addAll(node2Territory);
+			territories.remove(node2Territory);
 		}
 	}
 	
@@ -68,28 +72,25 @@ public class MinimalNetwork {
 		try (Stream<String> reader = Files.lines(Paths.get("src", "main", "resources", "labor02", filename))) {
 			List<String> lines = reader.collect(Collectors.toList());
 			TreeSet<Edge> readEdges = new TreeSet<>();
-			List<Integer> nodes = new ArrayList<>();
 			
 			for (int i = 0; i < lines.size(); i++) {
 				List<String> weights = Arrays.asList(lines.get(i).split(regex).clone());
-				if (nodes.isEmpty()) {
-					nodes = IntStream.range(0, weights.size()).boxed().collect(Collectors.toList());
-					nodeCount = nodes.size();
-				}
+				if (nodeCount == 0)
+					nodeCount = (int) IntStream.range(0, weights.size()).count();
 				if (weights.size() != nodeCount || lines.size() != nodeCount)
 					throw new IllegalArgumentException("The given file is illegal due to unequal row and column count.");
-				readEdges.addAll(createEdge(nodes, i, weights));
+				readEdges.addAll(createEdges(i, weights));
 			}
 			return readEdges;
 		}
 	}
 	
-	private Set<Edge> createEdge (List<Integer> nodes, int i, List<String> weights) {
+	private Set<Edge> createEdges (int i, List<String> weights) {
 		Set<Edge> currentEdges = new TreeSet<>();
 		for (int j = i; j < weights.size(); j++) {
 			try {
 				int weight = Integer.parseInt(weights.get(j));
-				currentEdges.add(new Edge(nodes.get(i), nodes.get(j), weight));
+				currentEdges.add(new Edge(i, j, weight));
 			} catch (NumberFormatException ignored) {}
 		}
 		return currentEdges;

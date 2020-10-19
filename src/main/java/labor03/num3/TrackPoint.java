@@ -14,6 +14,8 @@ public class TrackPoint implements Serializable {
 	private double altitude; // Seehöhe
 	private static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("hh:mm:tt");
 	
+	// TODO: JUnit 5 Tests, Check if correct
+	
 	public TrackPoint (String time, double geoLongitude, double geoLatitude, double altitude) {
 		this.time = getTime(time);
 		this.geoLongitude = geoLongitude;
