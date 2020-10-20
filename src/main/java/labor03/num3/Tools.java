@@ -13,7 +13,7 @@ import java.util.stream.Stream;
 public class Tools {
 	private static int illegalLinesCounter = 0;
 	
-	//TODO: JUnit5 Tests
+	//TODO: JUnit5 Tests (This program has not been tested yet)
 	
 	public static List<TrackPoint> readCsv (String filename) throws IOException {
 		try (Stream<String> lines = Files.lines(Paths.get("src", "main", "resources", "labor03", filename))) {
