@@ -1,4 +1,27 @@
 
-T
-java:S1135"2Complete the task associated to this TODO comment.(ŸŠ‹‚ıÿÿÿÿ8åŒ©âÓ.
-Q	java:S125Q"<This block of commented-out lines of code should be removed.(†±İô
+W
+java:S1118":Add a private constructor to hide the implicit public one.(ÚœÂ½8Øì¤áÜ.
+j	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ºéÊú8Øì¤áÜ.
+C
+java:S3864"!Remove this use of "Stream.peek".(é£¿Ôøÿÿÿÿ8Øì¤áÜ.
+o	java:S100"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(áÌ„Šıÿÿÿÿ8Øì¤áÜ.
+j	java:S100)"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÑÎ¸8Øì¤áÜ.
+C
+java:S3864/"!Remove this use of "Stream.peek".(é£¿Ôøÿÿÿÿ8Øì¤áÜ.
+j	java:S1005"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¡ÄÜ©8Øì¤áÜ.
+C
+java:S3864>"!Remove this use of "Stream.peek".(é£¿Ôøÿÿÿÿ8Øì¤áÜ.
+i	java:S100D"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(š­À~8Øì¤áÜ.
+o	java:S100Q"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‰€Äÿÿÿÿÿ8Øì¤áÜ.
+]	java:S125^"<This block of commented-out lines of code should be removed.(ê¸‘Ûşÿÿÿÿ8Øì¤áÜ.
+j	java:S100e"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(éÚèÀ8Øì¤áÜ.
+>
+java:S3864l"!Remove this use of "Stream.peek".(Ñéÿë8Øì¤áÜ.
+o	java:S100r"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(äÀ›úÿÿÿÿ8Øì¤áÜ.
+>
+java:S3864y"!Remove this use of "Stream.peek".(í”È¨8Øì¤áÜ.
+j	java:S100~"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬µ²Ó8Øì¤áÜ.
+D
+java:S3864‡"!Remove this use of "Stream.peek".(ù½àøúÿÿÿÿ8Øì¤áÜ.
+D
+java:S3864“"!Remove this use of "Stream.peek".(ù½àøúÿÿÿÿ8Øì¤áÜ.

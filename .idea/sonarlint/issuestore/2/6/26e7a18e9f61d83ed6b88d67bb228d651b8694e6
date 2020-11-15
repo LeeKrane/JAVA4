@@ -1,10 +1,18 @@
 
-l
-java:S1192"JDefine a constant instead of duplicating this literal "resources" 3 times.(ÔÔ£‰üÿÿÿÿ8À—ëãÓ.
-T
-java:S1135"2Complete the task associated to this TODO comment.(ŸŠ‹‚ıÿÿÿÿ8ƒÆªâÓ.
-D
-java:S1068v"'Remove this unused "csv" private field.(ı¦ëä8××şãÓ.
-]	java:S125"<This block of commented-out lines of code should be removed.(şŸ”ıÿÿÿÿ8ëó†äÓ.
-j
-java:S1192"HDefine a constant instead of duplicating this literal "labor03" 3 times.(ÔÔ£‰üÿÿÿÿ8À—ëãÓ.
+u	java:S115"ZRename this constant name to match the regular expression '^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$'.(œÔ8×ì¤áÜ.
+o	java:S100,"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ß®Ğüÿÿÿÿ8×ì¤áÜ.
+o	java:S1005"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Á äãüÿÿÿÿ8×ì¤áÜ.
+o	java:S100@"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ôÅ·®üÿÿÿÿ8×ì¤áÜ.
+>
+java:S3864G"!Remove this use of "Stream.peek".(ßˆ±ö8×ì¤áÜ.
+o	java:S100M"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ“š¯ÿÿÿÿÿ8×ì¤áÜ.
+>
+java:S3864S"!Remove this use of "Stream.peek".(ßˆ±ö8×ì¤áÜ.
+j	java:S100Y"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ÛÏŸ¤8×ì¤áÜ.
+i	java:S100c"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(µ ü(8×ì¤áÜ.
+ˆ
+java:S1130c"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(µ ü(8×ì¤áÜ.
+j	java:S100n"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(³ˆÛ8×ì¤áÜ.
+‰
+java:S1130n"lRemove the declaration of thrown exception 'java.io.IOException', as it cannot be thrown from method's body.(³ˆÛ8×ì¤áÜ.
+j	java:S100{"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ûå´ş8×ì¤áÜ.
