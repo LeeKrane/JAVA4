@@ -6,7 +6,7 @@ public class Main {
 	static Random RANDOM = new Random();
 	
 	public static void main (String[] args) {
-		SynchronizedStack<Integer> stack = new SynchronizedStack<>(6);
+		SynchronizedStack<Integer> stack = new SynchronizedStack<>(5);
 		Producer producer = new Producer(stack, 100, 500, 20);
 		Consumer consumer = new Consumer(stack, 200, 800, 20);
 		

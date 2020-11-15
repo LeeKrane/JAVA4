@@ -101,7 +101,7 @@ public class Main {
 		try (Stream<String> lines = schuelerStringListFromFile.stream()) {
 			String ret = lines.filter(line -> line.split(",")[1].contains("Julia"))
 					.findFirst()
-					.orElse("");
+					.orElse("Keine Julia");
 			System.out.println(SchuelerUtils.fromCSV(ret) + "\n");
 			return ret;
 		}
