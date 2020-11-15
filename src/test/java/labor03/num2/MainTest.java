@@ -25,7 +25,7 @@ class MainTest {
 	
 	@Test
 	void c_correctResult () {
-		var expected = schuelerSetFromFile.stream()
+		var expected = schuelerListFromFile.stream()
 				.filter(Schueler::isWeiblich)
 				.sorted((a, b) -> Comparator.comparing(Schueler::getKlasse).thenComparing(Schueler::getNr).compare(a, b))
 				.collect(Collectors.toList());
@@ -59,7 +59,7 @@ class MainTest {
 	
 	@Test
 	void h_correctResult () {
-		var expected = new TreeMap<>(schuelerSetFromFile.stream()
+		var expected = new TreeMap<>(schuelerListFromFile.stream()
 											 .collect(Collectors.groupingBy(Schueler::getVorname, Collectors.counting())));
 		assertEquals(expected, h_getFirstnameMap());
 	}

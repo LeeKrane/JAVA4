@@ -45,6 +45,14 @@ public class TrackPoint implements Serializable {
 		altitude = is.readDouble();
 	}
 	
+	public double getGeoLongitude () {
+		return geoLongitude;
+	}
+	
+	public double getGeoLatitude () {
+		return geoLatitude;
+	}
+	
 	public double getAltitude () {
 		return altitude;
 	}

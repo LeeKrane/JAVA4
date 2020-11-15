@@ -13,10 +13,8 @@ import java.util.stream.Stream;
 public class Tools {
 	private static int illegalLinesCounter = 0;
 	
-	//TODO: JUnit5 Tests (This program has not been tested yet)
-	
 	public static List<TrackPoint> readCsv (String filename) throws IOException {
-		try (Stream<String> lines = Files.lines(Paths.get("src", "main", "resources", "labor03", filename))) {
+		try (Stream<String> lines = Files.lines(Paths.get(filename))) {
 			List<TrackPoint> trackPoints = lines.filter(line -> {
 						if (line.matches("(\\d{2}(:\\d{2}){2});(\\d+\\.\\d+);(\\d+\\.\\d+);(\\d+\\.\\d+)"))
 							return true;
@@ -30,9 +28,13 @@ public class Tools {
 					})
 					.collect(Collectors.toList());
 			System.err.println("Illegal Lines: " + illegalLinesCounter);
-			illegalLinesCounter = 0;
+			resetIllegalLinesCounter();
 			return trackPoints;
 		}
+	}
+	
+	private static void resetIllegalLinesCounter () {
+		illegalLinesCounter = 0;
 	}
 	
 	private static void incrementIllegalLinesCounter () {
@@ -49,9 +51,10 @@ public class Tools {
 	
 	public static double maxElevation (String filename) throws IOException {
 		Set<TrackPoint> trackPoints = new HashSet<>();
-		try (ObjectInputStream is = new ObjectInputStream(Tools.class.getResourceAsStream(filename))) {
+		try (InputStream is = Tools.class.getResourceAsStream(filename);
+			 ObjectInputStream ois = new ObjectInputStream(is)) {
 			while (is.available() > 0) {
-				TrackPoint tp = (TrackPoint) is.readObject();
+				TrackPoint tp = (TrackPoint) ois.readObject();
 				trackPoints.add(tp);
 			}
 		} catch (ClassNotFoundException e) {
@@ -59,7 +62,7 @@ public class Tools {
 		}
 		
 		OptionalDouble maxElevation = trackPoints.stream()
-				.mapToDouble(tp -> tp.getAltitude())
+				.mapToDouble(TrackPoint::getAltitude)
 				.max();
 		if (maxElevation.isPresent())
 			return maxElevation.getAsDouble();

@@ -1,0 +1,12 @@
+
+S	java:S106i"9Replace this use of System.out or System.err by a logger.(ïù¯¯ûÿÿÿÿ
+S	java:S106A"9Replace this use of System.out or System.err by a logger.(ïù¯¯ûÿÿÿÿ
+t	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Œş·Äùÿÿÿÿ
+\
+java:S2142@"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€
+S	java:S1066"9Replace this use of System.out or System.err by a logger.(ŞÆ˜©ûÿÿÿÿ
+S	java:S1064"9Replace this use of System.out or System.err by a logger.(„ş´ıûÿÿÿÿ
+C
+java:S3864e"!Remove this use of "Stream.peek".(Û«½Ïøÿÿÿÿ8Ò×Ó.
+c
+java:S2142h"FEither re-interrupt this method or rethrow the "InterruptedException".(ä ¹€8Ò×Ó.
