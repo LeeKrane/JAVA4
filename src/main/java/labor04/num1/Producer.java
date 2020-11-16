@@ -1,10 +1,10 @@
 package labor04.num1;
 
 public class Producer extends Thread {
-	private SynchronizedStack<Integer> stack;
-	private int pauseTimeMin;
-	private int pauseTimeMax;
-	private int accessAmount;
+	private final SynchronizedStack<Integer> stack;
+	private final int pauseTimeMin;
+	private final int pauseTimeMax;
+	private final int accessAmount;
 	
 	public Producer (SynchronizedStack<Integer> stack, int pauseTimeMin, int pauseTimeMax, int accessAmount) {
 		this.stack = stack;

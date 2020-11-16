@@ -1,10 +1,10 @@
 package labor04.num2;
 
 public class Consumer extends Thread {
-	private Warehouse warehouse;
-	private int pauseTimeMin;
-	private int pauseTimeMax;
-	private int consumptionAmount;
+	private final Warehouse warehouse;
+	private final int pauseTimeMin;
+	private final int pauseTimeMax;
+	private final int consumptionAmount;
 	
 	public Consumer (Warehouse warehouse, int pauseTimeMin, int pauseTimeMax, int consumptionAmount) {
 		this.warehouse = warehouse;
@@ -28,5 +28,6 @@ public class Consumer extends Thread {
 				System.err.println("Unexpected error: " + e.getMessage());
 			}
 		}
+		warehouse.log("Consumer is done!");
 	}
 }

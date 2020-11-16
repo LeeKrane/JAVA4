@@ -1,12 +1,12 @@
 package labor04.num2;
 
 public class Producer extends Thread {
-	private Warehouse warehouse;
-	private int pauseTimeMin;
-	private int pauseTimeMax;
-	private int productionAmountMin;
-	private int productionAmountMax;
-	private int shipments;
+	private final Warehouse warehouse;
+	private final int pauseTimeMin;
+	private final int pauseTimeMax;
+	private final int productionAmountMin;
+	private final int productionAmountMax;
+	private final int shipments;
 	
 	public Producer (Warehouse warehouse, int pauseTimeMin, int pauseTimeMax, int productionAmountMin, int productionAmountMax, int shipments) {
 		this.warehouse = warehouse;
@@ -31,5 +31,6 @@ public class Producer extends Thread {
 			}
 		}
 		warehouse.setLastShipment();
+		warehouse.log("Producer is done!");
 	}
 }

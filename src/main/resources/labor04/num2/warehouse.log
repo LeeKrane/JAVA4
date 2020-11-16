@@ -1,4 +1,47 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
-</log>
+<record>
+  <date>2020-11-16T10:19:01.730701500Z</date>
+  <millis>1605521941730</millis>
+  <nanos>701500</nanos>
+  <sequence>0</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 6
+    Shipment: 0
+    New stock: 6</message>
+</record>
+<record>
+  <date>2020-11-16T10:19:04.562655100Z</date>
+  <millis>1605521944562</millis>
+  <nanos>655100</nanos>
+  <sequence>1</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 6
+    Shipment: 1
+    New stock: 12</message>
+</record>
+<record>
+  <date>2020-11-16T10:19:04.599555800Z</date>
+  <millis>1605521944599</millis>
+  <nanos>555800</nanos>
+  <sequence>2</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>31</thread>
+  <message>Consumption Completed!
+    Consumed: 7
+    New stock: 5</message>
+</record>
