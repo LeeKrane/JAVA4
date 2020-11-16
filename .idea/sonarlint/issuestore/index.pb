@@ -55,3 +55,17 @@ e
 5src/test/java/labor04/num1/SynchronizedStackTest.java,0\8\0853644601929622c359796aafe956a28946a6d7
 a
 1src/main/java/labor04/num1/SynchronizedStack.java,6\8\68fe394b644de9da4466c59bcfd283e9e8d973b0
+X
+(src/main/java/labor04/num1/Consumer.java,c\7\c7932fa2247182458f622319f6a6220b062aed7f
+X
+(src/main/java/labor04/num2/Consumer.java,e\c\ec52a42e9a5b35791ecb527caf2f7deab1cbed06
+T
+$src/main/java/labor04/num1/Main.java,8\2\8280abb179e36de6acabc537c003de249562cb56
+X
+(src/main/java/labor04/num1/Producer.java,4\e\4e82ba2be8173959b6bca9cc1738ea89396495b8
+X
+(src/main/java/labor04/num2/Producer.java,2\4\2417c7e963518b68150a2f8a1e2084ee24b05b10
+Y
+)src/main/java/labor04/num2/Warehouse.java,c\0\c0a0ffc86d75eb7e5e96d598bf94f8d60ae65155
+Z
+*src/main/java/labor04/num2/Simulation.java,d\a\da8682713a3955bfe66518742719dfa9222d3be4

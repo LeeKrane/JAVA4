@@ -4,12 +4,12 @@ import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class SynchronizedStack<E> {
-	private E []elements;
+	private final E []elements;
 	private int size;
 	
-	private ReentrantLock lock = new ReentrantLock();
-	private Condition isEmpty = lock.newCondition();
-	private Condition isFull = lock.newCondition();
+	private final ReentrantLock lock = new ReentrantLock();
+	private final Condition isEmpty = lock.newCondition();
+	private final Condition isFull = lock.newCondition();
 	
 	@SuppressWarnings("unchecked")
 	SynchronizedStack (int capacity) {
@@ -20,27 +20,31 @@ public class SynchronizedStack<E> {
 	
 	void push (E e) throws InterruptedException {
 		lock.lock();
-		while (elements.length == size)
-			isFull.await();
-		
-		elements[size] = e;
-		size++;
-		isEmpty.signal();
-		
-		lock.unlock();
+		try {
+			while (elements.length == size)
+				isFull.await();
+			
+			elements[size] = e;
+			size++;
+			isEmpty.signalAll();
+		} finally {
+			lock.unlock();
+		}
 	}
 	
 	E pop () throws InterruptedException {
 		lock.lock();
-		while (size == 0)
-			isEmpty.await();
-		
-		E ret = elements[size - 1];
-		elements[size - 1] = null;
-		size--;
-		isFull.signal();
-		
-		lock.unlock();
+		E ret;
+		try {
+			while (size == 0)
+				isEmpty.await();
+			
+			size--;
+			ret = elements[size];
+			isFull.signalAll();
+		} finally {
+			lock.unlock();
+		}
 		return ret;
 	}
 	

@@ -18,7 +18,7 @@ public class Consumer extends Thread {
 		while (!warehouse.isLastShipment() || warehouse.getStock() > 0) {
 			try {
 				sleep(Warehouse.RANDOM.nextInt(pauseTimeMax - pauseTimeMin) + pauseTimeMin);
-				Warehouse.log("Consumption Completed!" +
+				warehouse.log("Consumption Completed!" +
 									  	"\n    Consumed: " +
 									  		warehouse.decreaseStock(warehouse.isLastShipment()
 												? Math.min(warehouse.getStock(), consumptionAmount)

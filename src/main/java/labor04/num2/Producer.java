@@ -22,7 +22,7 @@ public class Producer extends Thread {
 		for (int i = 0; i < shipments; i++) {
 			try {
 				sleep(Warehouse.RANDOM.nextInt(pauseTimeMax - pauseTimeMin) + pauseTimeMin);
-				Warehouse.log("Shipment Completed!" +
+				warehouse.log("Shipment Completed!" +
 									  	"\n    Shipped: " + warehouse.increaseStock(Warehouse.RANDOM.nextInt(productionAmountMax - productionAmountMin) + productionAmountMin) +
 									  	"\n    Shipment: " + i +
 									  	"\n    New stock: " + warehouse.getStock());

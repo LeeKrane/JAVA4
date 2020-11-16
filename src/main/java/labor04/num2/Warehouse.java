@@ -5,13 +5,14 @@ import java.util.Random;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.logging.FileHandler;
+import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Warehouse {
 	static Random RANDOM = new Random();
-	private static FileHandler fileHandler;
-	private static Logger logger;
+	private FileHandler fileHandler;
+	private final Logger logger;
 	
 	private int capacity;
 	private int stock;
@@ -80,7 +81,15 @@ public class Warehouse {
 		return stock;
 	}
 	
-	static void log (String log) {
+	int getCapacity () {
+		return capacity;
+	}
+	
+	void log (String log) {
 		logger.info(log);
+	}
+	
+	void addHandler (Handler handler) {
+		logger.addHandler(handler);
 	}
 }
