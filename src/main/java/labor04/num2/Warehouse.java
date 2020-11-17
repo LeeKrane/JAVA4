@@ -1,5 +1,6 @@
 package labor04.num2;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -17,7 +18,7 @@ public class Warehouse {
 	private final Logger logger;
 	
 	private final int capacity;
-	private final IntegerProperty stock; // IntegerProperty / Eigene Klasse
+	private final IntegerProperty stock;
 	private boolean lastShipment = false;
 	
 	private final ReentrantLock lock = new ReentrantLock();
@@ -40,13 +41,15 @@ public class Warehouse {
 		stock = new SimpleIntegerProperty(0);
 	}
 	
-	int increaseStock (int amount) throws InterruptedException {
+	int increaseStock (int amount, BooleanProperty waiting) throws InterruptedException {
 		lock.lock();
 		while (stock.intValue() + amount > capacity) {
+			waiting.setValue(true);
 			log("Waiting for consumption!" +
 						"\n    Current stock: " + stock.intValue());
 			isFull.await();
 		}
+		waiting.setValue(false);
 		
 		stock.setValue(stock.intValue() + amount);
 		isEmpty.signal();
@@ -55,13 +58,15 @@ public class Warehouse {
 		return amount;
 	}
 	
-	int decreaseStock (int amount) throws InterruptedException {
+	int decreaseStock (int amount, BooleanProperty waiting) throws InterruptedException {
 		lock.lock();
 		while (stock.intValue() < amount && !lastShipment) {
+			waiting.setValue(true);
 			log("Waiting for shipment!" +
 						"\n    Current stock: " + stock.intValue());
 			isEmpty.await();
 		}
+		waiting.setValue(false);
 		
 		stock.setValue(stock.intValue() - amount);
 		isFull.signal();
@@ -80,16 +85,12 @@ public class Warehouse {
 		return lastShipment;
 	}
 	
-	int getStock () {
-		return stock.intValue();
+	public int getStock () {
+		return stock.get();
 	}
 	
-	IntegerProperty getStockProperty () {
+	public IntegerProperty stockProperty () {
 		return stock;
-	}
-	
-	int getCapacity () {
-		return capacity;
 	}
 	
 	void log (String log) {

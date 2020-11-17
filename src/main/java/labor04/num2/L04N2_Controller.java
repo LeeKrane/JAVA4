@@ -4,6 +4,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.scene.Node;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
@@ -21,44 +22,74 @@ public class L04N2_Controller implements Initializable {
 	private Consumer consumer;
 	private Rectangle[] rectangles;
 	
+	private static final Color FILLED_OR_RUNNING_COLOR = Color.LIMEGREEN;
+	private static final Color EMPTY_OR_WAITING_COLOR = Color.ORANGERED;
+	
 	@Override
 	public void initialize (URL url, ResourceBundle resourceBundle) {
 		initializeSimulation();
-		createGridPane();
-		Platform.runLater(() -> warehouse.getStockProperty().addListener(observable -> updateRectangles()));
+		initializeGridPane();
+		Platform.runLater(() -> warehouse.stockProperty().addListener(observable -> updateRectangles()));
 		startSimulation(warehouse, producer, consumer);
 	}
 	
 	private void updateRectangles () {
 		for (int i = 0; i < rectangles.length; i++) {
 			if (warehouse.getStock() <= i)
-				rectangles[i].setFill(Color.ORANGERED);
+				rectangles[i].setFill(EMPTY_OR_WAITING_COLOR);
 			else
-				rectangles[i].setFill(Color.LIMEGREEN);
+				rectangles[i].setFill(FILLED_OR_RUNNING_COLOR);
 		}
 	}
 	
-	private void createGridPane () {
+	private void initializeGridPane () {
 		rectangles = new Rectangle[20];
-		for (int col = 0; col < 20; col++) {
-			Rectangle rectangle = new Rectangle();
-			rectangle.setWidth(30);
-			rectangle.setHeight(100);
-			rectangle.setFill(Color.ORANGERED);
-			
-			// TODO: In FX einfügen, wer schläft/arbeitet/fertig ist und den Stock als int auch anzeigen.
-			
-			final ColumnConstraints constraint = new ColumnConstraints();
-			constraint.setPercentWidth(5);
-			constraint.setHalignment(HPos.CENTER);
-			pane.getColumnConstraints().add(constraint);
-			
-			rectangle.setStyle("-fx-arc-height: 15; -fx-arc-width: 15; -fx-padding: 10; -fx-alignment: center-center;");
-			GridPane.setRowIndex(rectangle, 1);
-			GridPane.setColumnIndex(rectangle, col);
-			Platform.runLater(() -> pane.getChildren().addAll(rectangle));
-			rectangles[col] = rectangle;
+		for (int column = 0; column < 20; column++) {
+			addColumnConstraints();
+			Rectangle rectangle = createRectangle(30, 100, EMPTY_OR_WAITING_COLOR);
+			rectangles[column] = rectangle;
+			addNodeTo(rectangle, column, 2);
 		}
+		
+		// TODO:
+		//  Show stock as integer in FX
+		//  Make the look of the working/waiting buttons cleaner
+		Rectangle producerRectangle = createRectangle(30, 30, FILLED_OR_RUNNING_COLOR);
+		addNodeTo(producerRectangle, 0, 0);
+		Platform.runLater(() -> producer.waitingProperty().addListener(observable -> updateThreadRectangle(producerRectangle, producer.isWaiting())));
+		
+		Rectangle consumerRectangle = createRectangle(30, 30, FILLED_OR_RUNNING_COLOR);
+		addNodeTo(consumerRectangle, 1, 0);
+		Platform.runLater(() -> consumer.waitingProperty().addListener(observable -> updateThreadRectangle(consumerRectangle, consumer.isWaiting())));
+	}
+	
+	private void updateThreadRectangle (Rectangle rectangle, boolean waiting) {
+		if (waiting)
+			rectangle.setFill(EMPTY_OR_WAITING_COLOR);
+		else
+			rectangle.setFill(FILLED_OR_RUNNING_COLOR);
+	}
+	
+	private void addNodeTo (Node node, int column, int row) {
+		GridPane.setRowIndex(node, row);
+		GridPane.setColumnIndex(node, column);
+		pane.getChildren().addAll(node);
+	}
+	
+	private void addColumnConstraints () {
+		final ColumnConstraints constraint = new ColumnConstraints();
+		constraint.setPercentWidth(5);
+		constraint.setHalignment(HPos.CENTER);
+		pane.getColumnConstraints().add(constraint);
+	}
+	
+	private Rectangle createRectangle (int width, int height, Color color) {
+		Rectangle rectangle = new Rectangle();
+		rectangle.setWidth(width);
+		rectangle.setHeight(height);
+		rectangle.setFill(color);
+		rectangle.setStyle("-fx-arc-height: 15; -fx-arc-width: 15; -fx-padding: 10; -fx-alignment: center-center;");
+		return rectangle;
 	}
 	
 	private void initializeSimulation () {

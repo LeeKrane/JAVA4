@@ -2,40 +2,10 @@
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
 <record>
-  <date>2020-11-16T10:19:01.730701500Z</date>
-  <millis>1605521941730</millis>
-  <nanos>701500</nanos>
+  <date>2020-11-17T19:09:45.191936900Z</date>
+  <millis>1605640185191</millis>
+  <nanos>936900</nanos>
   <sequence>0</sequence>
-  <logger>global</logger>
-  <level>INFO</level>
-  <class>labor04.num2.Warehouse</class>
-  <method>log</method>
-  <thread>30</thread>
-  <message>Shipment Completed!
-    Shipped: 6
-    Shipment: 0
-    New stock: 6</message>
-</record>
-<record>
-  <date>2020-11-16T10:19:04.562655100Z</date>
-  <millis>1605521944562</millis>
-  <nanos>655100</nanos>
-  <sequence>1</sequence>
-  <logger>global</logger>
-  <level>INFO</level>
-  <class>labor04.num2.Warehouse</class>
-  <method>log</method>
-  <thread>30</thread>
-  <message>Shipment Completed!
-    Shipped: 6
-    Shipment: 1
-    New stock: 12</message>
-</record>
-<record>
-  <date>2020-11-16T10:19:04.599555800Z</date>
-  <millis>1605521944599</millis>
-  <nanos>555800</nanos>
-  <sequence>2</sequence>
   <logger>global</logger>
   <level>INFO</level>
   <class>labor04.num2.Warehouse</class>
@@ -43,5 +13,364 @@
   <thread>31</thread>
   <message>Consumption Completed!
     Consumed: 7
-    New stock: 5</message>
+    New stock: 2</message>
+</record>
+<record>
+  <date>2020-11-17T19:09:45.192934600Z</date>
+  <millis>1605640185192</millis>
+  <nanos>934600</nanos>
+  <sequence>1</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 9
+    Shipment: 0
+    New stock: 9</message>
+</record>
+<record>
+  <date>2020-11-17T19:09:49.836537800Z</date>
+  <millis>1605640189836</millis>
+  <nanos>537800</nanos>
+  <sequence>2</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>31</thread>
+  <message>Waiting for shipment!
+    Current stock: 2</message>
+</record>
+<record>
+  <date>2020-11-17T19:09:50.038552200Z</date>
+  <millis>1605640190038</millis>
+  <nanos>552200</nanos>
+  <sequence>3</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 9
+    Shipment: 1
+    New stock: 11</message>
+</record>
+<record>
+  <date>2020-11-17T19:09:50.038552200Z</date>
+  <millis>1605640190038</millis>
+  <nanos>552200</nanos>
+  <sequence>4</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>31</thread>
+  <message>Consumption Completed!
+    Consumed: 7
+    New stock: 4</message>
+</record>
+<record>
+  <date>2020-11-17T19:09:54.203542100Z</date>
+  <millis>1605640194203</millis>
+  <nanos>542100</nanos>
+  <sequence>5</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 9
+    Shipment: 2
+    New stock: 13</message>
+</record>
+<record>
+  <date>2020-11-17T19:09:54.761609600Z</date>
+  <millis>1605640194761</millis>
+  <nanos>609600</nanos>
+  <sequence>6</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>31</thread>
+  <message>Consumption Completed!
+    Consumed: 7
+    New stock: 6</message>
+</record>
+<record>
+  <date>2020-11-17T19:09:56.715654200Z</date>
+  <millis>1605640196715</millis>
+  <nanos>654200</nanos>
+  <sequence>7</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 7
+    Shipment: 3
+    New stock: 13</message>
+</record>
+<record>
+  <date>2020-11-17T19:09:59.548770200Z</date>
+  <millis>1605640199548</millis>
+  <nanos>770200</nanos>
+  <sequence>8</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>31</thread>
+  <message>Consumption Completed!
+    Consumed: 7
+    New stock: 6</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:00.467960100Z</date>
+  <millis>1605640200467</millis>
+  <nanos>960100</nanos>
+  <sequence>9</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 8
+    Shipment: 4
+    New stock: 14</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:02.566516200Z</date>
+  <millis>1605640202566</millis>
+  <nanos>516200</nanos>
+  <sequence>10</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>31</thread>
+  <message>Consumption Completed!
+    Consumed: 7
+    New stock: 7</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:05.418014100Z</date>
+  <millis>1605640205418</millis>
+  <nanos>14100</nanos>
+  <sequence>11</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 8
+    Shipment: 5
+    New stock: 15</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:06.535436400Z</date>
+  <millis>1605640206535</millis>
+  <nanos>436400</nanos>
+  <sequence>12</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>31</thread>
+  <message>Consumption Completed!
+    Consumed: 7
+    New stock: 8</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:10.113681900Z</date>
+  <millis>1605640210113</millis>
+  <nanos>681900</nanos>
+  <sequence>13</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>31</thread>
+  <message>Consumption Completed!
+    Consumed: 7
+    New stock: 1</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:10.259292300Z</date>
+  <millis>1605640210259</millis>
+  <nanos>292300</nanos>
+  <sequence>14</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 9
+    Shipment: 6
+    New stock: 10</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:13.454774900Z</date>
+  <millis>1605640213454</millis>
+  <nanos>774900</nanos>
+  <sequence>15</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 6
+    Shipment: 7
+    New stock: 16</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:15.584081100Z</date>
+  <millis>1605640215584</millis>
+  <nanos>81100</nanos>
+  <sequence>16</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>31</thread>
+  <message>Consumption Completed!
+    Consumed: 7
+    New stock: 9</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:17.048164100Z</date>
+  <millis>1605640217048</millis>
+  <nanos>164100</nanos>
+  <sequence>17</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 8
+    Shipment: 8
+    New stock: 17</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:21.110303Z</date>
+  <millis>1605640221110</millis>
+  <nanos>303000</nanos>
+  <sequence>18</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>31</thread>
+  <message>Consumption Completed!
+    Consumed: 7
+    New stock: 10</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:21.332705200Z</date>
+  <millis>1605640221332</millis>
+  <nanos>705200</nanos>
+  <sequence>19</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 6
+    Shipment: 9
+    New stock: 16</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:23.443089300Z</date>
+  <millis>1605640223443</millis>
+  <nanos>89300</nanos>
+  <sequence>20</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Waiting for consumption!
+    Current stock: 16</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:25.971297700Z</date>
+  <millis>1605640225971</millis>
+  <nanos>297700</nanos>
+  <sequence>21</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>31</thread>
+  <message>Consumption Completed!
+    Consumed: 7
+    New stock: 9</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:25.971297700Z</date>
+  <millis>1605640225971</millis>
+  <nanos>297700</nanos>
+  <sequence>22</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 7
+    Shipment: 10
+    New stock: 16</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:30.296743100Z</date>
+  <millis>1605640230296</millis>
+  <nanos>743100</nanos>
+  <sequence>23</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>31</thread>
+  <message>Consumption Completed!
+    Consumed: 7
+    New stock: 9</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:30.671768800Z</date>
+  <millis>1605640230671</millis>
+  <nanos>768800</nanos>
+  <sequence>24</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Shipment Completed!
+    Shipped: 8
+    Shipment: 11
+    New stock: 17</message>
+</record>
+<record>
+  <date>2020-11-17T19:10:32.949681400Z</date>
+  <millis>1605640232949</millis>
+  <nanos>681400</nanos>
+  <sequence>25</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>labor04.num2.Warehouse</class>
+  <method>log</method>
+  <thread>30</thread>
+  <message>Waiting for consumption!
+    Current stock: 17</message>
 </record>
