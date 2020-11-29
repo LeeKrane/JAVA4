@@ -81,3 +81,11 @@ a
 1src/main/java/labor04/num2/L04N2_Application.java,c\6\c6f97bb52fa3d1d57841d1b2a7763d222ce7fe40
 `
 0src/main/java/labor04/num2/L04N2_Controller.java,a\7\a77875ebe34ff551b19e151207f1eb664276a7d6
+Z
+*src/main/resources/labor04/num2/L04N2.fxml,d\7\d7f5508b152d6e44d117417d3a0b9c2ba0d381bb
+V
+&src/main/java/labor04/num3/Runway.java,5\0\50b59eefd0b4b0fa06690c012651a8855c58f35d
+X
+(src/main/java/labor04/num3/Airplane.java,c\f\cf5fa5a3cb4c6ea7b6edb66940284be59e6d00f3
+U
+%src/main/java/labor04/num3/Tower.java,c\4\c4d46a50ec69370b4e409d7a96df1badc23279f8

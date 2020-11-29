@@ -1,35 +1,38 @@
 package labor04.num3;
 
-import java.util.logging.Level;
+import java.time.Instant;
 
-public class Airplane extends Thread {
+public class Airplane implements Runnable {
 	private final int index;
 	private final Runway runway;
-	private final Tower tower;
-	private final int timeBeforeE;
-	private final int timeAfterE;
+	private final int timeBeforeCrossingE;
+	private final int timeAfterCrossingE;
 	
-	public Airplane (int index, Runway runway, Tower tower, int timeBeforeE, int timeAfterE) {
+	public Airplane (int index, Runway runway, int timeBeforeCrossingE, int timeAfterCrossingE) {
 		this.index = index;
 		this.runway = runway;
-		this.tower = tower;
-		this.timeBeforeE = timeBeforeE;
-		this.timeAfterE = timeAfterE;
+		this.timeBeforeCrossingE = timeBeforeCrossingE;
+		this.timeAfterCrossingE = timeAfterCrossingE;
+		log("arrives for");
 	}
 	
 	@Override
 	public void run () {
 		try {
 			runway.startLandingSequence();
-			tower.log(Level.INFO, "Plane " + index + " is on runway " + runway);
-			sleep(timeBeforeE);
-			runway.passE();
-			tower.log(Level.INFO, "Plane " + index + " crosses E on runway " + runway);
-			sleep(timeAfterE);
+			log("is on");
+			Thread.sleep(timeBeforeCrossingE);
+			runway.passCriticalPointE();
+			log("crosses E on");
+			Thread.sleep(timeAfterCrossingE);
 			runway.finishLandingSequence();
-			tower.log(Level.INFO, "Plane " + index + " leaves runway " + runway);
+			log("leaves");
 		} catch (InterruptedException e) {
-			tower.log(Level.SEVERE, e.getMessage());
+			System.err.println(e.getMessage());
 		}
+	}
+	
+	private void log (String middleText) {
+		System.out.format("Timestamp: %-35s Plane %d %s runway %s%n", Instant.now().toString(), index, middleText, runway.toString());
 	}
 }
