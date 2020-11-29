@@ -11,8 +11,8 @@ public class L04N2_Application extends Application {
 	public void start (Stage primaryStage) throws Exception {
 		Parent root = FXMLLoader.load(getClass().getResource("/labor04/num2/L04N2.fxml"));
 		primaryStage.setTitle("Warehouse Simulation");
-		primaryStage.setScene(new Scene(root, 720, 120));
-		//primaryStage.setResizable(false);
+		primaryStage.setScene(new Scene(root, 720, 730));
+		primaryStage.setResizable(false);
 		primaryStage.show();
 	}
 }

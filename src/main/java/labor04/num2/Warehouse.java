@@ -2,15 +2,14 @@ package labor04.num2;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
 import java.io.IOException;
 import java.util.Random;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.logging.*;
 
 public class Warehouse {
 	static Random RANDOM = new Random();
@@ -19,7 +18,7 @@ public class Warehouse {
 	
 	private final int capacity;
 	private final IntegerProperty stock;
-	private boolean lastShipment = false;
+	private final BooleanProperty lastShipment = new SimpleBooleanProperty(false);
 	
 	private final ReentrantLock lock = new ReentrantLock();
 	private final Condition isEmpty = lock.newCondition();
@@ -60,7 +59,7 @@ public class Warehouse {
 	
 	int decreaseStock (int amount, BooleanProperty waiting) throws InterruptedException {
 		lock.lock();
-		while (stock.intValue() < amount && !lastShipment) {
+		while (stock.intValue() < amount && !lastShipment.get()) {
 			waiting.setValue(true);
 			log("Waiting for shipment!" +
 						"\n    Current stock: " + stock.intValue());
@@ -77,11 +76,15 @@ public class Warehouse {
 	
 	void setLastShipment () {
 		lock.lock();
-		lastShipment = true;
+		lastShipment.setValue(true);
 		lock.unlock();
 	}
 	
-	boolean isLastShipment () {
+	public boolean isLastShipment () {
+		return lastShipment.get();
+	}
+	
+	public BooleanProperty lastShipmentProperty () {
 		return lastShipment;
 	}
 	
@@ -95,5 +98,9 @@ public class Warehouse {
 	
 	void log (String log) {
 		logger.info(log);
+	}
+	
+	void addHandler (Handler handler) {
+		logger.addHandler(handler);
 	}
 }
