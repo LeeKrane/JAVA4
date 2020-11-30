@@ -12,13 +12,13 @@ public class JumpCounter extends FilterCounter { // FilterCounter
 	
 	@Override
 	public int read () {
-		return getUnderlyingCounter().read();
+		return super.read();
 	}
 	
 	@Override
 	public Counter tick () {
 		for (int i = 0; i < tickAmount; i++)
-			getUnderlyingCounter().tick();
+			super.tick();
 		return this;
 	}
 }

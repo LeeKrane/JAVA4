@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.*;
 
 public class ObservableTreeSet<T> extends TreeSet<T> {
-	// TODO: FX Anwendung
-	
 	private final Set<ObservableTreeSetListener<T>> observerSet = new HashSet<>();
 	
 	public ObservableTreeSet () {
@@ -40,7 +38,7 @@ public class ObservableTreeSet<T> extends TreeSet<T> {
 	public boolean add (T t) {
 		int oldSize = size();
 		boolean ret = super.add(t);
-		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, "add", LocalDateTime.now()));
+		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, EventTrigger.ADD, LocalDateTime.now()));
 		return ret;
 	}
 	
@@ -48,15 +46,19 @@ public class ObservableTreeSet<T> extends TreeSet<T> {
 	public boolean remove (Object o) {
 		int oldSize = size();
 		boolean ret = super.remove(o);
-		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, "remove", LocalDateTime.now()));
+		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, EventTrigger.REMOVE, LocalDateTime.now()));
 		return ret;
 	}
 	
 	@Override
 	public boolean addAll (Collection<? extends T> c) {
 		int oldSize = size();
-		boolean ret = super.addAll(c);
-		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, "addAll", LocalDateTime.now()));
+		boolean ret = false;
+		for (var item : c) {
+			if (ret) super.add(item);
+			else ret = super.add(item);
+		}
+		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, EventTrigger.ADD_ALL, LocalDateTime.now()));
 		return ret;
 	}
 	
@@ -64,7 +66,7 @@ public class ObservableTreeSet<T> extends TreeSet<T> {
 	public T pollFirst () {
 		int oldSize = size();
 		T ret = super.pollFirst();
-		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, "pollFirst", LocalDateTime.now()));
+		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, EventTrigger.POLL_FIRST, LocalDateTime.now()));
 		return ret;
 	}
 	
@@ -72,15 +74,19 @@ public class ObservableTreeSet<T> extends TreeSet<T> {
 	public T pollLast () {
 		int oldSize = size();
 		T ret = super.pollLast();
-		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, "pollLast", LocalDateTime.now()));
+		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, EventTrigger.POLL_LAST, LocalDateTime.now()));
 		return ret;
 	}
 	
 	@Override
 	public boolean removeAll (Collection<?> c) {
 		int oldSize = size();
-		boolean ret = super.removeAll(c);
-		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, "removeAll", LocalDateTime.now()));
+		boolean ret = false;
+		for (var item : c) {
+			if (ret) super.remove(item);
+			else ret = super.remove(item);
+		}
+		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, EventTrigger.REMOVE_ALL, LocalDateTime.now()));
 		return ret;
 	}
 	
@@ -88,7 +94,7 @@ public class ObservableTreeSet<T> extends TreeSet<T> {
 	public boolean retainAll (Collection<?> c) {
 		int oldSize = size();
 		boolean ret = super.retainAll(c);
-		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, "retainAll", LocalDateTime.now()));
+		notifyObserver(new ObservableTreeSetEvent<>(oldSize, size(), this, EventTrigger.RETAIN_ALL, LocalDateTime.now()));
 		return ret;
 	}
 }

@@ -6,14 +6,14 @@ public class ObservableTreeSetEvent<T> {
 	private final int oldSize;
 	private final int newSize;
 	private final ObservableTreeSet<T> source;
-	private final String method;
+	private final EventTrigger eventTrigger;
 	private final LocalDateTime timestamp;
 	
-	public ObservableTreeSetEvent (int oldSize, int newSize, ObservableTreeSet<T> source, String method, LocalDateTime timestamp) {
+	public ObservableTreeSetEvent (int oldSize, int newSize, ObservableTreeSet<T> source, EventTrigger eventTrigger, LocalDateTime timestamp) {
 		this.oldSize = oldSize;
 		this.newSize = newSize;
 		this.source = source;
-		this.method = method;
+		this.eventTrigger = eventTrigger;
 		this.timestamp = timestamp;
 	}
 	
@@ -35,12 +35,10 @@ public class ObservableTreeSetEvent<T> {
 	
 	@Override
 	public String toString () {
-		return "ObservableTreeSetEvent{" +
-				"oldSize=" + oldSize +
-				", newSize=" + newSize +
-				", source=" + source +
-				", method='" + method + '\'' +
-				", timestamp=" + timestamp +
-				'}';
+		return "oldSize=" + oldSize +
+				", \nnewSize=" + newSize +
+				", \nsource=" + source +
+				", \ntriggerEvent='" + eventTrigger + '\'' +
+				", \ntimestamp=" + timestamp;
 	}
 }

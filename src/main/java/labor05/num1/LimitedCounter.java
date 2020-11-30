@@ -12,12 +12,12 @@ public class LimitedCounter extends FilterCounter { // FilterCounter
 	
 	@Override
 	public int read () {
-		return Math.min(limit, getUnderlyingCounter().read());
+		return Math.min(limit, super.read());
 	}
 	
 	@Override
 	public Counter tick () {
-		getUnderlyingCounter().tick();
+		super.tick();
 		return this;
 	}
 }

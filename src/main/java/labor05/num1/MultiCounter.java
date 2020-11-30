@@ -2,6 +2,7 @@ package labor05.num1;
 
 public class MultiCounter extends FilterCounter {
 	private final int multiplier;
+	private int current = 1;
 	
 	public MultiCounter (Counter underlyingCounter, int multiplier) {
 		super(underlyingCounter);
@@ -12,14 +13,17 @@ public class MultiCounter extends FilterCounter {
 	
 	@Override
 	public int read () {
-		return getUnderlyingCounter().read();
+		return super.read();
 	}
 	
 	@Override
 	public Counter tick () {
-		for (int i = 0; i < multiplier - 1; i++)
-			System.out.print(getUnderlyingCounter().read() + " ");
-		getUnderlyingCounter().tick();
+		if (current < multiplier)
+			current++;
+		else {
+			current = 1;
+			super.tick();
+		}
 		return this;
 	}
 }

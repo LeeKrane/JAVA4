@@ -1,6 +1,5 @@
 package labor04.num3;
 
-import java.time.Instant;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
@@ -8,8 +7,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Tower {
-	private final Lock lock = new ReentrantLock();
-	private final Runway[] runways = {new Runway(lock, "AB"), new Runway(lock, "CD")};
+	private final Lock criticalLock = new ReentrantLock();
+	private final Runway[] runways = {new Runway(criticalLock, "AB"), new Runway(criticalLock, "CD")};
 	
 	private static final int THREAD_POOL_COUNT = 20;
 	private static final int TIME_BEFORE_CROSSING_E = 3000;

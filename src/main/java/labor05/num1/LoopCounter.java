@@ -2,7 +2,7 @@ package labor05.num1;
 
 import java.util.NoSuchElementException;
 
-public class LoopCounter extends ElementaryCounter {
+public class LoopCounter extends UCounter {
 	private final int[] content;
 	
 	public LoopCounter (int... content) {

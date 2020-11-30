@@ -10,13 +10,13 @@ public class PrintCounter extends FilterCounter { // FilterCounter
 	
 	@Override
 	public int read () {
-		return getUnderlyingCounter().read();
+		return super.read();
 	}
 	
 	@Override
 	public Counter tick () {
 		System.out.print(read() + "" + c);
-		getUnderlyingCounter().tick();
+		super.tick();
 		return this;
 	}
 }

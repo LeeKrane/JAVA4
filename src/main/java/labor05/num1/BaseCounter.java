@@ -1,6 +1,6 @@
 package labor05.num1;
 
-public class BaseCounter extends ElementaryCounter {
+public class BaseCounter extends UCounter {
 	private final int base;
 	
 	public BaseCounter (int base) {
