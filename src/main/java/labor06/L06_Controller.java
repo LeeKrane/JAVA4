@@ -40,7 +40,6 @@ public class L06_Controller implements Initializable {
 	@Override
 	public void initialize (URL url, ResourceBundle resourceBundle) {
 		initializeRepositoryWithExceptionHandling();
-		// TODO: 3 Buttons funktionsfähig umprogrammieren
 		btnFindSchuelerByKlasse.setOnAction(actionEvent -> findSchuelerByKlasse());
 		btnFindSchuelerByGeschlecht.setOnAction(actionEvent -> findSchuelerByGeschlecht());
 		btnGetKlassen.setOnAction(actionEvent -> getKlassen());
@@ -126,9 +125,10 @@ public class L06_Controller implements Initializable {
 				exceptionAlert(e, "SQLException");
 			}
 			
+			lvContent.getItems().clear();
 			for (Map.Entry<String, Integer> entry : klassen.entrySet())
 				lvContent.getItems().add(entry.getKey() + "=" + entry.getValue());
-			lvContent.getItems().clear();
+			Collections.sort(lvContent.getItems());
 		} else {
 			tfInput.clear();
 			alert(Alert.AlertType.ERROR, "Invalid input!", "The input text field must be empty for this operation!", ButtonType.OK);

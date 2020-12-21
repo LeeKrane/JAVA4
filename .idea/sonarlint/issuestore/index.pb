@@ -145,3 +145,11 @@ Z
 *src/main/java/labor06/L06_Application.java,c\7\c7753718f3cd90ea2c5debbe374dfbb6ea828474
 W
 'src/main/java/labor06/L06_Launcher.java,9\c\9cf2e336c4461ceda17cf28e9a2704cddd6c04a2
+`
+0src/main/resources/labor06/connection.properties,d\5\d543d1e19275dec95b7cf0d9b32afc15a2f5ea0d
+W
+'src/main/resources/labor06/JDBC_FX.fxml,b\b\bbbd16743a54f2a1b959dd8d9600c74b101e2bd3
+B
+files/schueler.csv,a\8\a80b743ab937d017e4cde944cf81ffa597310ff9
+F
+files/schueler_err.csv,c\9\c95874194375079d8e0b46595f6128de36c4bebd
