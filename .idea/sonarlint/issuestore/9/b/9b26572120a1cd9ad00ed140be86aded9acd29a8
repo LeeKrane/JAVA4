@@ -1,0 +1,6 @@
+
+b	java:S101"MRename this class name to match the regular expression '^[A-Z][a-zA-Z0-9]*$'.(º—Û¤
+g
+java:S1450("QRemove the "sc" field and declare it as a local variable in the relevant methods.(€¾ïÖ
+X
+java:S1075€"ARefactor your code to get this URI from a customizable parameter.(ïíÌÃ

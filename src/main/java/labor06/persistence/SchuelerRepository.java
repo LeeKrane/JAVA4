@@ -1,10 +1,12 @@
-package labor06;
+package labor06.persistence;
+
+import labor06.model.Schueler;
 
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
-public interface JdbcSchuelerRepository {
+public interface SchuelerRepository {
 	// persisitiert in einer Transaktion alle in lst gespeicherten Schueler.
 	// Löscht die Tabelle schueler falls sie existiert und erzeugt sie neu
 	int persistSchueler(List<Schueler> lst) throws SQLException;

@@ -1,36 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!DOCTYPE log SYSTEM "logger.dtd">
 <log>
-<record>
-  <date>2020-11-30T10:35:07.896873400Z</date>
-  <millis>1606732507896</millis>
-  <nanos>873400</nanos>
-  <sequence>0</sequence>
-  <logger>global</logger>
-  <level>INFO</level>
-  <class>labor05.num2.L05N2_Controller</class>
-  <method>logToFile</method>
-  <thread>27</thread>
-  <message>oldSize=0, 
-newSize=1, 
-source=[3], 
-triggerEvent='ADD', 
-timestamp=2020-11-30T11:35:07.891886700</message>
-</record>
-<record>
-  <date>2020-11-30T10:35:22.479577900Z</date>
-  <millis>1606732522479</millis>
-  <nanos>577900</nanos>
-  <sequence>1</sequence>
-  <logger>global</logger>
-  <level>INFO</level>
-  <class>labor05.num2.L05N2_Controller</class>
-  <method>logToFile</method>
-  <thread>27</thread>
-  <message>oldSize=1, 
-newSize=2, 
-source=[3, 5], 
-triggerEvent='ADD', 
-timestamp=2020-11-30T11:35:22.478580600</message>
-</record>
 </log>
