@@ -1,12 +1,14 @@
 package labor07.domain;
 
+import java.util.Objects;
+
 public class Dozent {
-	private final int id;
+	private int id;
 	private String zuname;
 	private String vorname;
 	
 	public Dozent (String zuname, String vorname) {
-		this(0, zuname, vorname); // TODO: Check how to get correct primary key
+		this(0, zuname, vorname);
 	}
 	
 	public Dozent (int id, String zuname, String vorname) {
@@ -17,6 +19,11 @@ public class Dozent {
 	
 	public int getId () {
 		return id;
+	}
+	
+	public void setId (int id) {
+		if (this.id == 0)
+			this.id = id;
 	}
 	
 	public String getZuname () {
@@ -33,5 +40,18 @@ public class Dozent {
 	
 	public void setVorname (String vorname) {
 		this.vorname = vorname;
+	}
+	
+	@Override
+	public boolean equals (Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Dozent dozent = (Dozent) o;
+		return id == dozent.id;
+	}
+	
+	@Override
+	public int hashCode () {
+		return Objects.hash(id);
 	}
 }

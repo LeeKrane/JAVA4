@@ -80,14 +80,15 @@ public class JdbcSchuelerRepository implements SchuelerRepository {
 	public List<Schueler> findSchuelerByKlasse (String klasse) throws SQLException {
 		List<Schueler> schuelerList = new ArrayList<>();
 		
-		String sql = String.format("""
+		String sql = """
 				select familienname, vorname, geschlecht, katNr, klasse
 				from schueler
-				where klasse like '%s'
+				where klasse like ?
 				order by katNr
-				""", klasse);
+				""";
 		
 		try (PreparedStatement selectStatement = connection.prepareStatement(sql)) {
+			selectStatement.setString(1, klasse);
 			ResultSet resultSet = selectStatement.executeQuery();
 			while (resultSet.next()) {
 				schuelerList.add(new Schueler(
@@ -115,11 +116,12 @@ public class JdbcSchuelerRepository implements SchuelerRepository {
 		String sql = """
 				select familienname, vorname, geschlecht, katNr, klasse
 				from schueler
-				where geschlecht like '%c'
+				where geschlecht like ?
 				order by klasse, katNr
 				""";
 		
-		try (PreparedStatement selectStatement = connection.prepareStatement(String.format(sql, geschlecht))) {
+		try (PreparedStatement selectStatement = connection.prepareStatement(sql)) {
+			selectStatement.setString(1, Character.toString(geschlecht));
 			ResultSet resultSet = selectStatement.executeQuery();
 			while (resultSet.next()) {
 				schuelerList.add(new Schueler(

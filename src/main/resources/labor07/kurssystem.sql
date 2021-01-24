@@ -15,10 +15,10 @@ DROP TABLE dozent;
  * Tabelle 'dozent'
  */
 CREATE TABLE dozent (
-  doz_id        serial NOT NULL,
-  doz_zuname 	varchar(25),
-  doz_vorname 	varchar(25),
-  CONSTRAINT 	dozent_pkey PRIMARY KEY (doz_id)
+  id            serial NOT NULL,
+  zuname 	    varchar(25),
+  vorname 	    varchar(25),
+  CONSTRAINT 	dozent_pkey PRIMARY KEY (id)
 );
 
 
@@ -26,13 +26,13 @@ CREATE TABLE dozent (
  * Daten für 'dozent'
  */
 
-INSERT INTO dozent (doz_zuname, doz_vorname) VALUES ('Leutner','Brigitte');
-INSERT INTO dozent (doz_zuname, doz_vorname) VALUES ('Gernhardt','Wolfgang');
-INSERT INTO dozent (doz_zuname, doz_vorname) VALUES ('Weizenbaum','Josephine');
-INSERT INTO dozent (doz_zuname, doz_vorname) VALUES ('Ludwig','Luigi');
-INSERT INTO dozent (doz_zuname, doz_vorname) VALUES ('Mergel','Boris');
-INSERT INTO dozent (doz_zuname, doz_vorname) VALUES ('Duffing','Julienne');
-INSERT INTO dozent (doz_zuname, doz_vorname) VALUES ('Meyer','Julius');
+INSERT INTO dozent (zuname, vorname) VALUES ('Leutner','Brigitte');
+INSERT INTO dozent (zuname, vorname) VALUES ('Gernhardt','Wolfgang');
+INSERT INTO dozent (zuname, vorname) VALUES ('Weizenbaum','Josephine');
+INSERT INTO dozent (zuname, vorname) VALUES ('Ludwig','Luigi');
+INSERT INTO dozent (zuname, vorname) VALUES ('Mergel','Boris');
+INSERT INTO dozent (zuname, vorname) VALUES ('Duffing','Julienne');
+INSERT INTO dozent (zuname, vorname) VALUES ('Meyer','Julius');
 
 
 /*
@@ -40,14 +40,14 @@ INSERT INTO dozent (doz_zuname, doz_vorname) VALUES ('Meyer','Julius');
  */
 
 CREATE TABLE kurs (
-  kurs_id           serial NOT NULL,
-/* kurs_typ          character(1),  */
-  kurs_doz_id       integer,             
-  kurs_bezeichnung  varchar(100),
-  kurs_beginndatum  date,
-  CONSTRAINT        kurs_pkey PRIMARY KEY (kurs_id),
-  CONSTRAINT        kurs_fk_doz FOREIGN KEY (kurs_doz_id)
-                    REFERENCES dozent(doz_id),
+  id                serial NOT NULL,
+  typ               varchar(1),
+  doz_id            integer,             
+  bezeichnung       varchar(100),
+  beginndatum       date,
+  CONSTRAINT        kurs_pkey PRIMARY KEY (id),
+  CONSTRAINT        kurs_fk_doz FOREIGN KEY (doz_id)
+                    REFERENCES dozent(id)
 );
 
 
@@ -55,17 +55,17 @@ CREATE TABLE kurs (
  * Daten für 'kurs'
  */
 
-INSERT INTO kurs (kurs_typ, kurs_doz_id, kurs_bezeichnung, kurs_beginndatum) 
+INSERT INTO kurs (typ, doz_id, bezeichnung, beginndatum) 
 VALUES ('P',2 ,'Objektorientierte Programmierung mit Java','2010-08-27');
-INSERT INTO kurs (kurs_typ, kurs_doz_id, kurs_bezeichnung, kurs_beginndatum)
+INSERT INTO kurs (typ, doz_id, bezeichnung, beginndatum)
 VALUES ('S',3,'JavaScript','2010-06-29');
-INSERT INTO kurs (kurs_typ, kurs_doz_id, kurs_bezeichnung, kurs_beginndatum)
+INSERT INTO kurs (typ, doz_id, bezeichnung, beginndatum)
 VALUES ('P',2,'JDBC','2010-06-30');
-INSERT INTO kurs (kurs_typ, kurs_doz_id, kurs_bezeichnung, kurs_beginndatum) 
+INSERT INTO kurs (typ, doz_id, bezeichnung, beginndatum) 
 VALUES ('W',4,'HTML','2010-07-13');
-INSERT INTO kurs (kurs_typ, kurs_doz_id, kurs_bezeichnung, kurs_beginndatum)
+INSERT INTO kurs (typ, doz_id, bezeichnung, beginndatum)
 VALUES ('P',5,'GUI-Programmierung mit Java','2010-10-09');
-INSERT INTO kurs (kurs_typ, kurs_doz_id, kurs_bezeichnung, kurs_beginndatum)
+INSERT INTO kurs (typ, doz_id, bezeichnung, beginndatum)
 VALUES ('W',4,'Servlets','2010-10-10');
 
 /*
@@ -73,10 +73,10 @@ VALUES ('W',4,'Servlets','2010-10-10');
  */
 
 CREATE TABLE kunde (
-  kunde_id 	        serial NOT NULL,
-  kunde_zuname		varchar(25),
-  kunde_vorname 	varchar(25),
-  CONSTRAINT 		kunde_pkey PRIMARY KEY (kunde_id)
+  id 	            serial NOT NULL,
+  zuname		    varchar(25),
+  vorname 	        varchar(25),
+  CONSTRAINT 		kunde_pkey PRIMARY KEY (id)
 );
 
 
@@ -84,12 +84,12 @@ CREATE TABLE kunde (
  * Daten für 'kunde'
  */
 
-INSERT INTO kunde (kunde_zuname, kunde_vorname) VALUES ('Bauer','Hannes');
-INSERT INTO kunde (kunde_zuname, kunde_vorname) VALUES ('Khan','Dschingis');
-INSERT INTO kunde (kunde_zuname, kunde_vorname) VALUES ('Schmidt','Lothar');
-INSERT INTO kunde (kunde_zuname, kunde_vorname) VALUES ('Kunze','Sieglinde');
-INSERT INTO kunde (kunde_zuname, kunde_vorname) VALUES ('Hintze','Franz');
-INSERT INTO kunde (kunde_zuname, kunde_vorname) VALUES ('Kaiser','Leo');
+INSERT INTO kunde (zuname, vorname) VALUES ('Bauer','Hannes');
+INSERT INTO kunde (zuname, vorname) VALUES ('Khan','Dschingis');
+INSERT INTO kunde (zuname, vorname) VALUES ('Schmidt','Lothar');
+INSERT INTO kunde (zuname, vorname) VALUES ('Kunze','Sieglinde');
+INSERT INTO kunde (zuname, vorname) VALUES ('Hintze','Franz');
+INSERT INTO kunde (zuname, vorname) VALUES ('Kaiser','Leo');
 
 /*
  *   Tabelle kurs_kunde
@@ -100,9 +100,9 @@ CREATE TABLE  kurs_kunde (
   kurs_id      integer NOT NULL,
   CONSTRAINT   kurs_kunde_pkey PRIMARY KEY (kunde_id, kurs_id),
   CONSTRAINT   kurs_kunde_fk1 FOREIGN KEY (kunde_id)
-               REFERENCES kunde(kunde_id),
+               REFERENCES kunde(id),
   CONSTRAINT   kurs_kunde_fk2 FOREIGN KEY (kurs_id)
-               REFERENCES kurs(kurs_id)
+               REFERENCES kurs(id)
 );
 
 

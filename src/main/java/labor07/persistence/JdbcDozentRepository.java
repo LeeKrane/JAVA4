@@ -1,6 +1,5 @@
 package labor07.persistence;
 
-import labor06.model.Schueler;
 import labor07.domain.Dozent;
 
 import java.sql.*;
@@ -24,8 +23,8 @@ public class JdbcDozentRepository implements DozentRepository {
 				from dozent
 				""";
 		
-		try (PreparedStatement selectStatement = connection.prepareStatement(sql)) {
-			ResultSet resultSet = selectStatement.executeQuery();
+		try (Statement selectStatement = connection.createStatement()) {
+			ResultSet resultSet = selectStatement.executeQuery(sql);
 			while (resultSet.next()) {
 				dozentList.add(new Dozent(
 						resultSet.getInt(1),
@@ -33,8 +32,6 @@ public class JdbcDozentRepository implements DozentRepository {
 						resultSet.getString(3)
 				));
 			}
-		} catch (SQLException e) {
-			return dozentList;
 		}
 		
 		return dozentList;
@@ -42,45 +39,64 @@ public class JdbcDozentRepository implements DozentRepository {
 	
 	@Override
 	public Optional<Dozent> findById (Integer id) throws SQLException {
-		Optional<Dozent> dozent = Optional.empty();
-		
-		String sql = String.format("""
+		String sql = """
 				select id, zuname, vorname
 				from dozent
-				where id = %d
-				""", id);
+				where id = ?
+				""";
 		
 		try (PreparedStatement selectStatement = connection.prepareStatement(sql)) {
+			selectStatement.setInt(1, id);
 			ResultSet resultSet = selectStatement.executeQuery();
-			while (resultSet.next()) {
-				dozent = Optional.of(new Dozent(
-						resultSet.getInt(1),
-						resultSet.getString(2),
-						resultSet.getString(3)
-				));
-			}
+			if (!resultSet.next())
+				return Optional.empty();
+			return Optional.of(new Dozent(
+					resultSet.getInt(1),
+					resultSet.getString(2),
+					resultSet.getString(3)
+			));
+		}
+	}
+	
+	@Override
+	public Dozent save (Dozent dozent) throws SQLException {
+		if (dozent.getId() != 0)
+			throw new IllegalArgumentException("Dozent ID must be 0!");
+		
+		String sql = """
+				insert into dozent
+				values (?, ?)
+				""";
+		
+		try (PreparedStatement insertStatement = connection.prepareStatement(sql)) {
+			connection.setAutoCommit(false);
+			insertStatement.setInt(1, dozent.getId());
+			insertStatement.setString(2, dozent.getZuname());
+			insertStatement.setString(3, dozent.getVorname());
+			insertStatement.executeUpdate();
+			connection.commit();
 		} catch (SQLException e) {
-			return dozent;
+			connection.rollback();
+			throw e;
+		} finally {
+			connection.setAutoCommit(true);
 		}
 		
 		return dozent;
 	}
 	
 	@Override
-	public Dozent save (Dozent dozent) throws SQLException {
-		return null;
-	}
-	
-	@Override
 	public boolean deleteDozent (Integer id) throws SQLException {
 		boolean ret;
 		
-		try (Statement deleteStatement = connection.createStatement()) {
+		String sql = """
+				delete from dozent
+				where id = ?
+				""";
+		
+		try (PreparedStatement deleteStatement = connection.prepareStatement(sql)) {
 			connection.setAutoCommit(false);
-			String sql = String.format("""
-					delete from dozent
-					where id = %d
-					""", id);
+			deleteStatement.setInt(1, id);
 			ret = deleteStatement.executeUpdate(sql) == 1;
 		} catch (SQLException e) {
 			connection.rollback();
