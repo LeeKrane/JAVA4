@@ -1,6 +1,6 @@
 package labor07;
 
-import labor07.domain.Dozent;
+import labor07.model.Dozent;
 import labor07.persistence.DozentRepository;
 import labor07.persistence.JdbcDozentRepository;
 import org.junit.jupiter.api.AfterEach;
@@ -24,7 +24,7 @@ public class JdbcDozentRepositoryTest {
 
     @BeforeEach
     void connect() throws SQLException {
-        String jdbcUrl = "jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:/init_db.sql'";
+        String jdbcUrl = "jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:/labor07/kurssystem_init_h2.sql'";
         connection = DriverManager.getConnection(jdbcUrl);
         dozentReository = new JdbcDozentRepository(connection);
     }

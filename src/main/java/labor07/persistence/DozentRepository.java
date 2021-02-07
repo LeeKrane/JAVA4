@@ -1,7 +1,7 @@
 package labor07.persistence;
 
 
-import labor07.domain.Dozent;
+import labor07.model.Dozent;
 
 import java.sql.SQLException;
 import java.util.List;

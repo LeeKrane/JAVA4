@@ -1,9 +1,9 @@
-package labor07.domain;
+package labor07.model;
 
 import java.util.Objects;
 
 public class Dozent {
-	private int id;
+	private final Integer id;
 	private String zuname;
 	private String vorname;
 	
@@ -17,13 +17,8 @@ public class Dozent {
 		this.vorname = vorname;
 	}
 	
-	public int getId () {
+	public Integer getId () {
 		return id;
-	}
-	
-	public void setId (int id) {
-		if (this.id == 0)
-			this.id = id;
 	}
 	
 	public String getZuname () {
@@ -47,7 +42,7 @@ public class Dozent {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Dozent dozent = (Dozent) o;
-		return id == dozent.id;
+		return id.equals(dozent.id);
 	}
 	
 	@Override

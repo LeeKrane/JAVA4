@@ -1,6 +1,7 @@
 package labor07.persistence;
 
-import labor07.domain.Kunde;
+import labor07.model.Kunde;
+import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,8 +17,7 @@ public class JdbcKundeRepository implements KundeRepository {
 	
 	@Override
 	public List<Kunde> findAll () throws SQLException {
-		List<Kunde> kundeList = new ArrayList<>();
-		
+		List<Kunde> kunden = new ArrayList<>();
 		String sql = """
 				select id, zuname, vorname
 				from kunde
@@ -26,7 +26,7 @@ public class JdbcKundeRepository implements KundeRepository {
 		try (PreparedStatement selectStatement = connection.prepareStatement(sql)) {
 			ResultSet resultSet = selectStatement.executeQuery();
 			while (resultSet.next()) {
-				kundeList.add(new Kunde(
+				kunden.add(new Kunde(
 						resultSet.getInt(1),
 						resultSet.getString(2),
 						resultSet.getString(3)
@@ -34,7 +34,7 @@ public class JdbcKundeRepository implements KundeRepository {
 			}
 		}
 		
-		return kundeList;
+		return kunden;
 	}
 	
 	@Override
@@ -60,35 +60,37 @@ public class JdbcKundeRepository implements KundeRepository {
 	
 	@Override
 	public Kunde save (Kunde kunde) throws SQLException {
-		if (kunde.getId() != 0)
-			throw new IllegalArgumentException("Kunde ID must be 0!");
+		if (kunde.getId() != null)
+			throw new IllegalArgumentException("Kunde ID must be NULL!");
 		
+		Kunde ret;
 		String sql = """
-				insert into kunde
+				insert into kunde(zuname, vorname)
 				values (?, ?)
 				""";
 		
-		try (PreparedStatement insertStatement = connection.prepareStatement(sql)) {
+		try (PreparedStatement insertStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			connection.setAutoCommit(false);
-			insertStatement.setInt(1, kunde.getId());
-			insertStatement.setString(2, kunde.getZuname());
-			insertStatement.setString(3, kunde.getVorname());
+			insertStatement.setString(1, kunde.getZuname());
+			insertStatement.setString(2, kunde.getVorname());
 			insertStatement.executeUpdate();
+			
+			ResultSet resultSet = insertStatement.getGeneratedKeys();
+			if (resultSet.next()) {
+				ret = findById(resultSet.getInt(1)).orElse(null);
+			} else
+				throw new IllegalArgumentException("There was no key generated for the Kunde!");
 			connection.commit();
-		} catch (SQLException e) {
-			connection.rollback();
-			throw e;
 		} finally {
 			connection.setAutoCommit(true);
 		}
 		
-		return kunde;
+		return ret;
 	}
 	
 	@Override
 	public boolean deleteKunde (Integer id) throws SQLException {
-		boolean ret;
-		
+		boolean success;
 		String sql = """
 				delete from kunde
 				where id = ?
@@ -97,7 +99,9 @@ public class JdbcKundeRepository implements KundeRepository {
 		try (PreparedStatement deleteStatement = connection.prepareStatement(sql)) {
 			connection.setAutoCommit(false);
 			deleteStatement.setInt(1, id);
-			ret = deleteStatement.executeUpdate(sql) == 1;
+			success = deleteStatement.executeUpdate(sql) == 1;
+		} catch (JdbcSQLIntegrityConstraintViolationException e) {
+			return false;
 		} catch (SQLException e) {
 			connection.rollback();
 			throw e;
@@ -105,6 +109,6 @@ public class JdbcKundeRepository implements KundeRepository {
 			connection.setAutoCommit(true);
 		}
 		
-		return ret;
+		return success;
 	}
 }

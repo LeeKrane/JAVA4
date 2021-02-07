@@ -1,8 +1,9 @@
 package labor07.persistence;
 
-import labor07.domain.Dozent;
-import labor07.domain.Kunde;
-import labor07.domain.Kurs;
+import labor07.model.Dozent;
+import labor07.model.Kunde;
+import labor07.model.Kurs;
+import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,8 +19,7 @@ public class JdbcKursRepository implements KursRepository {
 	
 	@Override
 	public List<Kurs> findAll () throws SQLException {
-		List<Kurs> kursList = new ArrayList<>();
-		
+		List<Kurs> kurse = new ArrayList<>();
 		String sql = """
 				select id, typ, doz_id, bezeichnung, beginn
 				from kurs
@@ -28,7 +28,7 @@ public class JdbcKursRepository implements KursRepository {
 		try (Statement selectStatement = connection.createStatement()) {
 			ResultSet resultSet = selectStatement.executeQuery(sql);
 			while (resultSet.next()) {
-				kursList.add(new Kurs(
+				kurse.add(new Kurs(
 						resultSet.getInt(1),
 						resultSet.getString(2).charAt(0),
 						resultSet.getInt(3),
@@ -38,13 +38,12 @@ public class JdbcKursRepository implements KursRepository {
 			}
 		}
 		
-		return kursList;
+		return kurse;
 	}
 	
 	@Override
 	public List<Kurs> findAllByDozent (Dozent dozent) throws SQLException {
-		List<Kurs> kursList = new ArrayList<>();
-		
+		List<Kurs> kurse = new ArrayList<>();
 		String sql = """
 				select id, typ, doz_id, bezeichnung, beginn
 				from kurs
@@ -55,7 +54,7 @@ public class JdbcKursRepository implements KursRepository {
 			selectStatement.setInt(1, dozent.getId());
 			ResultSet resultSet = selectStatement.executeQuery();
 			while (resultSet.next()) {
-				kursList.add(new Kurs(
+				kurse.add(new Kurs(
 						resultSet.getInt(1),
 						resultSet.getString(2).charAt(0),
 						resultSet.getInt(3),
@@ -65,7 +64,7 @@ public class JdbcKursRepository implements KursRepository {
 			}
 		}
 		
-		return kursList;
+		return kurse;
 	}
 	
 	@Override
@@ -93,23 +92,95 @@ public class JdbcKursRepository implements KursRepository {
 	
 	@Override
 	public Kurs save (Kurs kurs) throws SQLException {
-		if (kurs.getId() != 0)
-			throw new IllegalArgumentException("Kurs ID must be 0!");
+		if (kurs.getId() != null)
+			throw new IllegalArgumentException("Kurs ID must be NULL!");
 		
+		Kurs ret = null;
 		String sql = """
-				insert into kurs
+				insert into kurs(typ, doz_id, bezeichnung, beginndatum)
 				values (?, ?, ?, ?)
 				""";
 		
 		try (PreparedStatement insertStatement = connection.prepareStatement(sql)) {
 			connection.setAutoCommit(false);
-			insertStatement.setInt(1, kurs.getId());
-			insertStatement.setString(2, Character.toString(kurs.getTyp()));
-			insertStatement.setInt(3, kurs.getDozId());
-			insertStatement.setString(4, kurs.getBezeichnung());
-			insertStatement.setDate(5, kurs.getBeginn());
+			insertStatement.setString(1, Character.toString(ret.getTyp()));
+			insertStatement.setInt(2, ret.getDozId());
+			insertStatement.setString(3, ret.getBezeichnung());
+			insertStatement.setDate(4, ret.getBeginn());
 			insertStatement.executeUpdate();
+			
+			ResultSet resultSet = insertStatement.getGeneratedKeys();
+			if (resultSet.next()) {
+				ret = findById(resultSet.getInt(1)).orElse(null);
+			} else
+				throw new IllegalArgumentException("There was no key generated for the Dozent!");
 			connection.commit();
+		} finally {
+			connection.setAutoCommit(true);
+		}
+		
+		return ret;
+	}
+	
+	@Override
+	public List<Kurs> getKurseByKunde (Integer id) throws SQLException {
+		List<Kurs> kurse = new ArrayList<>();
+		String sql = """
+				select kurs_id
+				from kurs_kunde
+				where kunde_id = ?
+				""";
+		
+		try (PreparedStatement selectStatement = connection.prepareStatement(sql)) {
+			selectStatement.setInt(1, id);
+			ResultSet resultSet = selectStatement.executeQuery();
+			
+			Kurs temp;
+			while (resultSet.next()) {
+				temp = findById(resultSet.getInt(1)).orElse(null);
+				if (temp != null)
+					kurse.add(temp);
+			}
+		}
+		return kurse;
+	}
+	
+	@Override
+	public boolean bucheKurs (Kunde kunde, Kurs kurs) throws SQLException {
+		boolean success;
+		String sql = """
+				insert into kurs_kunde
+				values(?, ?)
+				""";
+		
+		try (PreparedStatement insertStatement = connection.prepareStatement(sql)) {
+			connection.setAutoCommit(false);
+			insertStatement.setInt(1, kunde.getId());
+			insertStatement.setInt(2, kurs.getId());
+			success = insertStatement.executeUpdate() == 1;
+			connection.commit();
+		} finally {
+			connection.setAutoCommit(true);
+		}
+		
+		return success;
+	}
+	
+	@Override
+	public boolean storniereKurs (Kunde kunde, Kurs kurs) throws SQLException {
+		boolean success;
+		String sql = """
+				delete from kurs_kunde
+				where kunde_id = ? and kurs_id = ?
+				""";
+		
+		try (PreparedStatement deleteStatement = connection.prepareStatement(sql)) {
+			connection.setAutoCommit(false);
+			deleteStatement.setInt(1, kunde.getId());
+			deleteStatement.setInt(2, kurs.getId());
+			success = deleteStatement.executeUpdate() == 1;
+		} catch (JdbcSQLIntegrityConstraintViolationException e) {
+			return false;
 		} catch (SQLException e) {
 			connection.rollback();
 			throw e;
@@ -117,21 +188,6 @@ public class JdbcKursRepository implements KursRepository {
 			connection.setAutoCommit(true);
 		}
 		
-		return kurs;
-	}
-	
-	@Override
-	public List<Kurs> getKurseByKunde (Integer id) throws SQLException {
-		return null;
-	}
-	
-	@Override
-	public boolean bucheKurs (Kunde kunde, Kurs kurs) throws SQLException {
-		return false;
-	}
-	
-	@Override
-	public boolean storniereKurs (Kunde kunde, Kurs kurs) throws SQLException {
-		return false;
+		return success;
 	}
 }

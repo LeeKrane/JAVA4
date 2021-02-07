@@ -1,9 +1,9 @@
-package labor07.domain;
+package labor07.model;
 
 import java.util.Objects;
 
 public class Kunde {
-	private int id;
+	private final Integer id;
 	private String zuname;
 	private String vorname;
 	
@@ -17,13 +17,8 @@ public class Kunde {
 		this.vorname = vorname;
 	}
 	
-	public int getId () {
+	public Integer getId () {
 		return id;
-	}
-	
-	public void setId (int id) {
-		if (this.id == 0)
-			this.id = id;
 	}
 	
 	public String getZuname () {
@@ -47,7 +42,7 @@ public class Kunde {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Kunde kunde = (Kunde) o;
-		return id == kunde.id;
+		return id.equals(kunde.id);
 	}
 	
 	@Override

@@ -1,11 +1,14 @@
 package labor07.persistence;
 
-import labor07.domain.Dozent;
+import labor07.model.Dozent;
+import org.h2.jdbc.JdbcSQLIntegrityConstraintViolationException;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+// TODO: Create POSTGRESQL-Database from .sql file
 
 public class JdbcDozentRepository implements DozentRepository {
 	private final Connection connection;
@@ -16,8 +19,7 @@ public class JdbcDozentRepository implements DozentRepository {
 	
 	@Override
 	public List<Dozent> findAll () throws SQLException {
-		List<Dozent> dozentList = new ArrayList<>();
-		
+		List<Dozent> dozenten = new ArrayList<>();
 		String sql = """
 				select id, zuname, vorname
 				from dozent
@@ -26,7 +28,7 @@ public class JdbcDozentRepository implements DozentRepository {
 		try (Statement selectStatement = connection.createStatement()) {
 			ResultSet resultSet = selectStatement.executeQuery(sql);
 			while (resultSet.next()) {
-				dozentList.add(new Dozent(
+				dozenten.add(new Dozent(
 						resultSet.getInt(1),
 						resultSet.getString(2),
 						resultSet.getString(3)
@@ -34,7 +36,7 @@ public class JdbcDozentRepository implements DozentRepository {
 			}
 		}
 		
-		return dozentList;
+		return dozenten;
 	}
 	
 	@Override
@@ -60,35 +62,37 @@ public class JdbcDozentRepository implements DozentRepository {
 	
 	@Override
 	public Dozent save (Dozent dozent) throws SQLException {
-		if (dozent.getId() != 0)
-			throw new IllegalArgumentException("Dozent ID must be 0!");
+		if (dozent.getId() != null)
+			throw new IllegalArgumentException("Dozent ID must be NULL!");
 		
+		Dozent ret;
 		String sql = """
-				insert into dozent
+				insert into dozent(zuname, vorname)
 				values (?, ?)
 				""";
 		
-		try (PreparedStatement insertStatement = connection.prepareStatement(sql)) {
+		try (PreparedStatement insertStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			connection.setAutoCommit(false);
-			insertStatement.setInt(1, dozent.getId());
-			insertStatement.setString(2, dozent.getZuname());
-			insertStatement.setString(3, dozent.getVorname());
+			insertStatement.setString(1, dozent.getZuname());
+			insertStatement.setString(2, dozent.getVorname());
 			insertStatement.executeUpdate();
+			
+			ResultSet resultSet = insertStatement.getGeneratedKeys();
+			if (resultSet.next()) {
+				ret = findById(resultSet.getInt(1)).orElse(null);
+			} else
+				throw new IllegalArgumentException("There was no key generated for the Dozent!");
 			connection.commit();
-		} catch (SQLException e) {
-			connection.rollback();
-			throw e;
 		} finally {
 			connection.setAutoCommit(true);
 		}
 		
-		return dozent;
+		return ret;
 	}
 	
 	@Override
 	public boolean deleteDozent (Integer id) throws SQLException {
-		boolean ret;
-		
+		boolean success;
 		String sql = """
 				delete from dozent
 				where id = ?
@@ -97,7 +101,9 @@ public class JdbcDozentRepository implements DozentRepository {
 		try (PreparedStatement deleteStatement = connection.prepareStatement(sql)) {
 			connection.setAutoCommit(false);
 			deleteStatement.setInt(1, id);
-			ret = deleteStatement.executeUpdate(sql) == 1;
+			success = deleteStatement.executeUpdate() == 1;
+		} catch (JdbcSQLIntegrityConstraintViolationException e) {
+			return false;
 		} catch (SQLException e) {
 			connection.rollback();
 			throw e;
@@ -105,6 +111,6 @@ public class JdbcDozentRepository implements DozentRepository {
 			connection.setAutoCommit(true);
 		}
 		
-		return ret;
+		return success;
 	}
 }

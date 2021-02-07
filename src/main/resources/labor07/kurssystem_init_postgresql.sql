@@ -2,18 +2,17 @@
  * Datenbank fuer ein Kurssystem
  */
 
-/*
-DROP TABLE kurs_kunde;
-DROP TABLE kurs;
-DROP TABLE kurstyp;
-DROP TABLE kunde;
-DROP TABLE dozent;
-*/
+DROP TABLE IF EXISTS kurs_kunde;
+DROP TABLE IF EXISTS kurs;
+DROP TABLE IF EXISTS kurstyp;
+DROP TABLE IF EXISTS kunde;
+DROP TABLE IF EXISTS dozent;
 
 
 /*
  * Tabelle 'dozent'
  */
+
 CREATE TABLE dozent (
   id            serial NOT NULL,
   zuname 	    varchar(25),
@@ -36,18 +35,38 @@ INSERT INTO dozent (zuname, vorname) VALUES ('Meyer','Julius');
 
 
 /*
+ * Tabelle kurstyp
+ */
+
+CREATE TABLE kurstyp (
+  id            character(1) NOT NULL,
+  bezeichnung   varchar(100),
+  CONSTRAINT    kurstyp_pkey PRIMARY KEY (id)
+);
+
+
+/*
+ * Daten für 'kurstyp'
+ */
+
+INSERT INTO kurstyp(id, bezeichnung) VALUES ('P', 'Programmierung');
+INSERT INTO kurstyp(id, bezeichnung) VALUES ('S', 'Skriptspachen');
+INSERT INTO kurstyp(id, bezeichnung) VALUES ('W', 'Webtechnologien');
+
+
+/*
  * Tabelle 'kurs'
  */
 
 CREATE TABLE kurs (
   id                serial NOT NULL,
-  typ               varchar(1),
+  typ               character(1),
   doz_id            integer,             
   bezeichnung       varchar(100),
   beginndatum       date,
   CONSTRAINT        kurs_pkey PRIMARY KEY (id),
-  CONSTRAINT        kurs_fk_doz FOREIGN KEY (doz_id)
-                    REFERENCES dozent(id)
+  CONSTRAINT        kurs_fk_doz FOREIGN KEY (doz_id) REFERENCES dozent(id),
+  CONSTRAINT        kurs_fk_typ FOREIGN KEY (typ) REFERENCES kurstyp(id)
 );
 
 

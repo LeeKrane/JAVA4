@@ -1,10 +1,10 @@
-package labor07.domain;
+package labor07.model;
 
 import java.sql.Date;
 import java.util.Objects;
 
 public class Kurs {
-	private int id;
+	private final Integer id;
 	private char typ;
 	private int dozId;
 	private String bezeichnung;
@@ -22,13 +22,8 @@ public class Kurs {
 		this.beginn = beginn;
 	}
 	
-	public int getId () {
+	public Integer getId () {
 		return id;
-	}
-	
-	public void setId (int id) {
-		if (this.id == 0)
-			this.id = id;
 	}
 	
 	public char getTyp () {
@@ -68,7 +63,7 @@ public class Kurs {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Kurs kurs = (Kurs) o;
-		return id == kurs.id;
+		return id.equals(kurs.id);
 	}
 	
 	@Override
