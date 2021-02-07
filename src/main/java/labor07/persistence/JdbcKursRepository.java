@@ -21,7 +21,7 @@ public class JdbcKursRepository implements KursRepository {
 	public List<Kurs> findAll () throws SQLException {
 		List<Kurs> kurse = new ArrayList<>();
 		String sql = """
-				select id, typ, doz_id, bezeichnung, beginn
+				select id, typ, doz_id, bezeichnung, beginndatum
 				from kurs
 				""";
 		
@@ -45,9 +45,9 @@ public class JdbcKursRepository implements KursRepository {
 	public List<Kurs> findAllByDozent (Dozent dozent) throws SQLException {
 		List<Kurs> kurse = new ArrayList<>();
 		String sql = """
-				select id, typ, doz_id, bezeichnung, beginn
+				select id, typ, doz_id, bezeichnung, beginndatum
 				from kurs
-				where dozId = ?
+				where doz_id = ?
 				""";
 		
 		try (PreparedStatement selectStatement = connection.prepareStatement(sql)) {
@@ -70,7 +70,7 @@ public class JdbcKursRepository implements KursRepository {
 	@Override
 	public Optional<Kurs> findById (Integer id) throws SQLException {
 		String sql = """
-				select id, typ, doz_id, bezeichnung, beginn
+				select id, typ, doz_id, bezeichnung, beginndatum
 				from kurs
 				where id = ?
 				""";
@@ -95,25 +95,25 @@ public class JdbcKursRepository implements KursRepository {
 		if (kurs.getId() != null)
 			throw new IllegalArgumentException("Kurs ID must be NULL!");
 		
-		Kurs ret = null;
+		Kurs ret;
 		String sql = """
 				insert into kurs(typ, doz_id, bezeichnung, beginndatum)
 				values (?, ?, ?, ?)
 				""";
 		
-		try (PreparedStatement insertStatement = connection.prepareStatement(sql)) {
+		try (PreparedStatement insertStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 			connection.setAutoCommit(false);
-			insertStatement.setString(1, Character.toString(ret.getTyp()));
-			insertStatement.setInt(2, ret.getDozId());
-			insertStatement.setString(3, ret.getBezeichnung());
-			insertStatement.setDate(4, ret.getBeginn());
+			insertStatement.setString(1, Character.toString(kurs.getTyp()));
+			insertStatement.setInt(2, kurs.getDozId());
+			insertStatement.setString(3, kurs.getBezeichnung());
+			insertStatement.setDate(4, kurs.getBeginn());
 			insertStatement.executeUpdate();
 			
 			ResultSet resultSet = insertStatement.getGeneratedKeys();
 			if (resultSet.next()) {
 				ret = findById(resultSet.getInt(1)).orElse(null);
 			} else
-				throw new IllegalArgumentException("There was no key generated for the Dozent!");
+				throw new IllegalArgumentException("There was no key generated for the Kurs!");
 			connection.commit();
 		} finally {
 			connection.setAutoCommit(true);

@@ -19,14 +19,14 @@ import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException
 
 public class JdbcDozentRepositoryTest {
 
-    private DozentRepository dozentReository;
+    private DozentRepository dozentRepository;
     private Connection connection;
 
     @BeforeEach
     void connect() throws SQLException {
         String jdbcUrl = "jdbc:h2:mem:test;INIT=RUNSCRIPT FROM 'classpath:/labor07/kurssystem_init_h2.sql'";
         connection = DriverManager.getConnection(jdbcUrl);
-        dozentReository = new JdbcDozentRepository(connection);
+        dozentRepository = new JdbcDozentRepository(connection);
     }
 
     @AfterEach
@@ -36,7 +36,7 @@ public class JdbcDozentRepositoryTest {
 
     @Test
     void testFindAllOk() throws SQLException {
-        List<Dozent> allActors = dozentReository.findAll();
+        List<Dozent> allActors = dozentRepository.findAll();
 
         assertThat(allActors).extracting(Dozent::getId)
                 .containsExactlyInAnyOrder(1, 2, 3, 4, 5, 6, 7);
@@ -44,14 +44,14 @@ public class JdbcDozentRepositoryTest {
 
     @Test
     void testFindByIdDozentExistsInDB() throws SQLException {
-        Optional<Dozent> opt = dozentReository.findById(3);
+        Optional<Dozent> opt = dozentRepository.findById(3);
 
         assertThat(opt.get().getZuname()).isEqualTo("Weizenbaum");
     }
 
     @Test
     void testFindByIdDozentDoesNotExistInDB() throws SQLException {
-        Optional<Dozent> opt = dozentReository.findById(10);
+        Optional<Dozent> opt = dozentRepository.findById(10);
 
         assertThat(opt).isEmpty();
     }
@@ -59,10 +59,10 @@ public class JdbcDozentRepositoryTest {
     @Test
     void saveActorOK() throws SQLException {
         Dozent toSave = new Dozent("Mauß", "Franz");
-        Dozent saved = dozentReository.save(toSave);
+        Dozent saved = dozentRepository.save(toSave);
 
         assertThat(saved.getId()).isEqualTo(8);
-        Optional<Dozent> opt = dozentReository.findById(8);
+        Optional<Dozent> opt = dozentRepository.findById(8);
         assertThat(opt.get().getZuname()).isEqualTo("Mauß");
     }
 
@@ -70,20 +70,20 @@ public class JdbcDozentRepositoryTest {
     void saveActorhasId() {
         Dozent toSave = new Dozent(10, "Mauß", "Franz");
 
-        assertThatIllegalArgumentException().isThrownBy(() -> dozentReository.save(toSave));
+        assertThatIllegalArgumentException().isThrownBy(() -> dozentRepository.save(toSave));
     }
 
     @Test
     void deleteDozentOk() throws SQLException {
-        boolean deleted = dozentReository.deleteDozent(1);
+        boolean deleted = dozentRepository.deleteDozent(1);
 
         assertThat(deleted).isTrue();
-        assertThat(dozentReository.findById(1)).isEmpty();
+        assertThat(dozentRepository.findById(1)).isEmpty();
     }
 
     @Test
     void deleteDozentWithCourses() throws SQLException {
-        boolean deleted = dozentReository.deleteDozent(2);
+        boolean deleted = dozentRepository.deleteDozent(2);
 
         assertThat(deleted).isFalse();
     }

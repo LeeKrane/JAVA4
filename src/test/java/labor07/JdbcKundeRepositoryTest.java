@@ -18,8 +18,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatIllegalArgumentException;
 
 class JdbcKundeRepositoryTest {
-// TODO: Create testing-methods
-
 	private KundeRepository kundeRepository;
 	private Connection connection;
 	
