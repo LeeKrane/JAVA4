@@ -11,10 +11,10 @@ public class Kurs {
 	private Date beginn;
 	
 	public Kurs (char typ, int dozId, String bezeichnung, Date beginn) {
-		this(0, typ, dozId, bezeichnung, beginn);
+		this(null, typ, dozId, bezeichnung, beginn);
 	}
 	
-	public Kurs (int id, char typ, int dozId, String bezeichnung, Date beginn) {
+	public Kurs (Integer id, char typ, int dozId, String bezeichnung, Date beginn) {
 		this.id = id;
 		this.typ = typ;
 		this.dozId = dozId;

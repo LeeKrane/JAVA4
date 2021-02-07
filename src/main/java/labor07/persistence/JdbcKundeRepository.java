@@ -49,7 +49,7 @@ public class JdbcKundeRepository implements KundeRepository {
 			selectStatement.setInt(1, id);
 			ResultSet resultSet = selectStatement.executeQuery();
 			if (!resultSet.next())
-				Optional.empty();
+				return Optional.empty();
 			return Optional.of(new Kunde(
 					resultSet.getInt(1),
 					resultSet.getString(2),
@@ -99,7 +99,7 @@ public class JdbcKundeRepository implements KundeRepository {
 		try (PreparedStatement deleteStatement = connection.prepareStatement(sql)) {
 			connection.setAutoCommit(false);
 			deleteStatement.setInt(1, id);
-			success = deleteStatement.executeUpdate(sql) == 1;
+			success = deleteStatement.executeUpdate() == 1;
 		} catch (JdbcSQLIntegrityConstraintViolationException e) {
 			return false;
 		} catch (SQLException e) {

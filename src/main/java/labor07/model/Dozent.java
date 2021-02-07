@@ -8,10 +8,10 @@ public class Dozent {
 	private String vorname;
 	
 	public Dozent (String zuname, String vorname) {
-		this(0, zuname, vorname);
+		this(null, zuname, vorname);
 	}
 	
-	public Dozent (int id, String zuname, String vorname) {
+	public Dozent (Integer id, String zuname, String vorname) {
 		this.id = id;
 		this.zuname = zuname;
 		this.vorname = vorname;
