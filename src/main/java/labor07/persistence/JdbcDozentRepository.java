@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-// TODO: Create POSTGRESQL-Database from .sql file
-
 public class JdbcDozentRepository implements DozentRepository {
 	private final Connection connection;
 	

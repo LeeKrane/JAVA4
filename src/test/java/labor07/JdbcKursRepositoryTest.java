@@ -111,4 +111,12 @@ class JdbcKursRepositoryTest {
 				.extracting(Kurs::getId)
 				.containsExactlyInAnyOrder(1);
 	}
+	
+	@Test
+	void bucheKursDoppelterEintragReturnFalse() throws SQLException {
+		Kunde kunde = new Kunde(6, "Kaiser", "Leo");
+		Kurs kurs = new Kurs(1, 'P',2,"Objektorientierte Programmierung mit Java", Date.valueOf("2010-08-27"));
+		
+		assertThat(kursRepository.bucheKurs(kunde, kurs)).isFalse();
+	}
 }

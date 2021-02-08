@@ -159,6 +159,8 @@ public class JdbcKursRepository implements KursRepository {
 			insertStatement.setInt(2, kurs.getId());
 			success = insertStatement.executeUpdate() == 1;
 			connection.commit();
+		} catch (JdbcSQLIntegrityConstraintViolationException e) {
+			return false;
 		} finally {
 			connection.setAutoCommit(true);
 		}
