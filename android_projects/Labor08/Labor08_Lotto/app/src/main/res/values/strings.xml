@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Labor08_Lotto</string>
+    <string name="tip_count_hint">1-10 (Tip Count)</string>
+    <string name="rb_45">6 aus 45</string>
+    <string name="rb_49">6 aus 49</string>
+    <string name="btn_generate">Generate Tips</string>
+</resources>
