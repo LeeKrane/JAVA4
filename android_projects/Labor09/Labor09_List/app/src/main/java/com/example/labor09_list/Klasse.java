@@ -26,35 +26,17 @@ public class Klasse {
         this.schuelerList = schuelerList;
     }
 
-    static List<Klasse> fromCSV (List<String> lines) {
-        List<Klasse> klassen = new ArrayList<>();
-        List<String> klassenToRead = lines.stream()
-                                            .map(s -> s.split(";")[1])
-                                            .distinct()
-                                            .collect(Collectors.toList());
-
-        for (String klasse : klassenToRead) {
-            klassen.add(new Klasse(klasse, lines.stream()
-                                                .map(line -> line.split(";"))
-                                                .filter(split -> split[1].equals(klasse))
-                                                .map(split -> new Schueler(Integer.parseInt(split[0]), split[1], split[2], split[3]))
-                                                .collect(Collectors.toList())));
-        }
-
-        return klassen;
-    }
-
-    static List<String> linesFromCSV (InputStream inputStream) {
-        List<String> lines = new ArrayList<>();
-
+    static List<Klasse> fromCSV (InputStream inputStream) {
         try(BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
-            while (reader.ready())
-                lines.add(reader.readLine());
+            return reader.lines()
+                    .map(s -> Schueler.fromCSV(s))
+                    .collect(Collectors.groupingBy(Schueler::getKlasse, Collectors.toList()))
+                        .entrySet().stream()
+                        .map(e -> new Klasse(e.getKey(), e.getValue()))
+                        .collect(Collectors.toList());
         } catch (IOException e) {
             throw new IllegalArgumentException("Illegal resource!");
         }
-
-        return lines;
     }
 
     public String getName () {
