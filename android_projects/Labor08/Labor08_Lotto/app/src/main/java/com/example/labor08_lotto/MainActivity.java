@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import java.util.Locale;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.IntStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -47,11 +48,12 @@ public class MainActivity extends AppCompatActivity {
         StringBuilder builder = new StringBuilder();
 
         for (int i = 0; i < n; i++) {
-            for (int j = 0; j < 6; j++) {
-                builder.append(String.format(Locale.ENGLISH, "%2d", ThreadLocalRandom.current().nextInt(max) + 1));
-                if (j < 5)
-                    builder.append("  ");
-            }
+            builder.append(IntStream.generate(() -> ThreadLocalRandom.current().nextInt(max) + 1)
+                    .distinct()
+                    .limit(6)
+                    .sorted()
+                    .mapToObj(j -> String.format("%02d", j))
+                    .reduce("", (a, b) -> a + "  " + b));
             builder.append("\n");
         }
 
