@@ -179,3 +179,11 @@ b
 2src/test/java/labor07/JdbcKundeRepositoryTest.java,d\6\d6cfd85f670c4e66441764f31a83fdc1ecf0d7c0
 a
 1src/test/java/labor07/JdbcKursRepositoryTest.java,1\d\1dacb27393c7115fe5d8efd1d47f9feec07d1050
+Z
+*src/main/java/labor11/num1/db/JPAUtil.java,e\d\edffcfa0f4c06e8d795f8821c37b5368d07b01ce
+]
+-src/main/java/labor11/num1/model/Address.java,b\6\b62928adc19f624c4696c7b1bd3146b9d485e316
+e
+5src/main/java/labor11/num1/db/CustomerRepository.java,a\6\a692d555e5aed9552b933068c81e14b6e5ed8dd6
+^
+.src/main/java/labor11/num1/model/Customer.java,b\8\b8543fe153d19b0ca3fb75232b872d8a933f1668
