@@ -2,15 +2,21 @@
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="2.2"
              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
     <!-- Define persistence unit -->
-    <persistence-unit name="customer-persistence-unit">
+    <persistence-unit name="jpa-test-unit" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <class>labor11.num1.model.Customer</class>
-        <class>labor11.num1.model.Address</class>
+        <class>labor11.num1.model.onetoone.Customer</class>
+        <class>labor11.num1.model.onetoone.Address</class>
+        <class>labor11.num1.model.onetomany.Book</class>
+        <class>labor11.num1.model.onetomany.Publisher</class>
+        <class>labor11.num1.model.manytomany.BookCategory</class>
+        <class>labor11.num2.model.Benutzer</class>
+        <class>labor11.num2.model.Reisetyp</class>
+        <class>labor11.num2.model.Reiseveranstaltung</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/test"/>
-            <property name="javax.persistence.jdbc.user" value="schueler"/>
-            <property name="javax.persistence.jdbc.password" value="schueler"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://10.128.6.18:5432/db_4chif_15_labor_11"/>
+            <property name="javax.persistence.jdbc.user" value="user_4chif_15_kc"/>
+            <property name="javax.persistence.jdbc.password" value="20021025"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL92Dialect"/>
             <property name="hibernate.hbm2ddl.auto" value="create"/>
             <property name="hibernate.show_sql" value="true"/>
