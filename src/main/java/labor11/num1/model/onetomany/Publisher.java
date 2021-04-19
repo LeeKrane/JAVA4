@@ -5,9 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -24,13 +22,10 @@ public class Publisher implements Serializable {
 	private String description;
 	
 	@OneToMany(mappedBy = "publisher")
-	private Set<Book> books = new HashSet<>();
+	private List<Book> books = new ArrayList<>();
 	
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "pub_addr",
-			   joinColumns = {@JoinColumn(name = "pub_id")},
-			   inverseJoinColumns = {@JoinColumn(name = "addr_id")})
-	private Set<Address> addresses = new HashSet<>();
+	private List<Address> addresses = new ArrayList<>();
 	
 	public Publisher (String name, String description) {
 		this.name = name;

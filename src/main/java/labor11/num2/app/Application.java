@@ -1,6 +1,6 @@
 package labor11.num2.app;
 
-import labor11.Repository;
+import labor11.db.Repository;
 import labor11.num2.model.Benutzer;
 import labor11.num2.model.Reisetyp;
 import labor11.num2.model.Reiseveranstaltung;

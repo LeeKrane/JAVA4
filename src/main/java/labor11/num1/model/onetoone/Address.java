@@ -1,6 +1,5 @@
 package labor11.num1.model.onetoone;
 
-import labor11.num1.model.onetomany.Publisher;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,9 +29,6 @@ public class Address implements Serializable {
 	
 	@OneToOne(mappedBy = "address")
 	private Customer customer;
-	
-	@ManyToOne
-	private Publisher publisher;
 	
 	public Address (Integer zip, String city, String street) {
 		this.zip = zip;

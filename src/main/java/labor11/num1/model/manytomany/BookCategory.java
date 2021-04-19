@@ -5,9 +5,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,7 +27,7 @@ public class BookCategory implements Serializable {
 	private String description;
 	
 	@ManyToMany(mappedBy = "categories")
-	private Set<Book> books = new HashSet<>();
+	private List<Book> books = new ArrayList<>();
 	
 	public BookCategory (String description) {
 		this.description = description;

@@ -1,6 +1,6 @@
 package labor11.num1.app;
 
-import labor11.Repository;
+import labor11.db.Repository;
 import labor11.num1.model.manytomany.BookCategory;
 import labor11.num1.model.onetomany.Book;
 import labor11.num1.model.onetomany.Publisher;

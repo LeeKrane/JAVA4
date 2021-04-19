@@ -14,7 +14,7 @@
         <class>labor11.num2.model.Reiseveranstaltung</class>
         <properties>
             <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://10.128.6.18:5432/db_4chif_15_labor_11"/>
+            <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://10.128.6.18:5432/db_4chif_15_labor_12"/>
             <property name="javax.persistence.jdbc.user" value="user_4chif_15_kc"/>
             <property name="javax.persistence.jdbc.password" value="20021025"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL92Dialect"/>

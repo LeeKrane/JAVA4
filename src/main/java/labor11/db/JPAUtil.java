@@ -1,4 +1,4 @@
-package labor11;
+package labor11.db;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;

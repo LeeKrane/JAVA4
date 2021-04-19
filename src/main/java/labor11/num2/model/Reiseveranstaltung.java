@@ -5,9 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @NoArgsConstructor
 @Getter
@@ -18,13 +16,13 @@ public class Reiseveranstaltung implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "rv_id")
-	private Integer rv_id;
+	private Integer id;
 	
 	@Column(name = "rv_zielort", nullable = false, length = 30)
 	private String zielort;
 	
 	@Column(name = "rv_beschreibung", length = 300)
-	private String rv_beschreibung;
+	private String beschreibung;
 	
 	@Column(name = "rv_beginn", nullable = false)
 	private LocalDate rv_beginn;
@@ -39,9 +37,9 @@ public class Reiseveranstaltung implements Serializable {
 	@JoinColumn(name = "r_rv_id", nullable = false)
 	private Reisetyp reisetyp;
 	
-	public Reiseveranstaltung (String zielort, String rv_beschreibung, LocalDate rv_beginn, LocalDate rv_ende, double preis, Reisetyp reisetyp) {
+	public Reiseveranstaltung (String zielort, String beschreibung, LocalDate rv_beginn, LocalDate rv_ende, double preis, Reisetyp reisetyp) {
 		this.zielort = zielort;
-		this.rv_beschreibung = rv_beschreibung;
+		this.beschreibung = beschreibung;
 		this.rv_beginn = rv_beginn;
 		this.rv_ende = rv_ende;
 		this.preis = preis;
@@ -53,20 +51,20 @@ public class Reiseveranstaltung implements Serializable {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Reiseveranstaltung that = (Reiseveranstaltung) o;
-		return Objects.equals(rv_id, that.rv_id);
+		return Objects.equals(id, that.id);
 	}
 	
 	@Override
 	public int hashCode () {
-		return Objects.hash(rv_id);
+		return Objects.hash(id);
 	}
 	
 	@Override
 	public String toString () {
 		return "Reiseveranstaltung{" +
-				"rv_id=" + rv_id +
+				"rv_id=" + id +
 				", zielort='" + zielort + '\'' +
-				", rv_beschreibung='" + rv_beschreibung + '\'' +
+				", rv_beschreibung='" + beschreibung + '\'' +
 				", rv_beginn=" + rv_beginn +
 				", rv_ende=" + rv_ende +
 				", preis=" + preis +

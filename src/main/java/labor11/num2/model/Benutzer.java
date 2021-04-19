@@ -29,7 +29,7 @@ public class Benutzer implements Serializable {
 	private boolean newsletter;
 	
 	@ManyToMany
-	@JoinTable(name = "b_r",
+	@JoinTable(name = "benutzer_reisetyp",
 			   joinColumns = {@JoinColumn(name = "b_email")},
 			   inverseJoinColumns = {@JoinColumn(name = "r_id")})
 	private Set<Reisetyp> reisetypen = new HashSet<>();

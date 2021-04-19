@@ -17,16 +17,16 @@ public class Reisetyp implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "r_id")
-	private Integer r_id;
+	private Integer id;
 	
 	@Column(name = "r_bezeichnung")
-	private String r_bezeichnung;
+	private String bezeichnung;
 	
 	@OneToMany(mappedBy = "reisetyp")
 	private Set<Reiseveranstaltung> reiseveranstaltungen = new HashSet<>();
 	
-	public Reisetyp (String r_bezeichnung) {
-		this.r_bezeichnung = r_bezeichnung;
+	public Reisetyp (String bezeichnung) {
+		this.bezeichnung = bezeichnung;
 	}
 	
 	public void addReiseveranstaltung (Reiseveranstaltung reiseveranstaltung) {
@@ -38,19 +38,19 @@ public class Reisetyp implements Serializable {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		Reisetyp reisetyp = (Reisetyp) o;
-		return Objects.equals(r_id, reisetyp.r_id);
+		return Objects.equals(id, reisetyp.id);
 	}
 	
 	@Override
 	public int hashCode () {
-		return Objects.hash(r_id);
+		return Objects.hash(id);
 	}
 	
 	@Override
 	public String toString () {
 		return "Reisetyp{" +
-				"r_id=" + r_id +
-				", r_bezeichnung='" + r_bezeichnung + '\'' +
+				"r_id=" + id +
+				", r_bezeichnung='" + bezeichnung + '\'' +
 				'}';
 	}
 }
