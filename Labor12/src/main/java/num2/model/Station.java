@@ -20,5 +20,15 @@ public class Station {
 	@Column(name = "st_city")
 	private String city;
 	
+	public Station (String city) {
+		this.city = city;
+	}
 	
+	@Override
+	public String toString () {
+		return "Station{" +
+				"id=" + id +
+				", city='" + city + '\'' +
+				'}';
+	}
 }

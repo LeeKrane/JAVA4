@@ -33,8 +33,32 @@ public class Car {
 	@JoinColumn(name = "car_location")
 	private Station location;
 	
-	@OneToMany(mappedBy = "car", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "car")
 	private List<Rental> rentals = new ArrayList<>();
 	
+	public Car (String registrationNr, Integer constructionYear, Integer milage, String model) {
+		this.registrationNr = registrationNr;
+		this.constructionYear = constructionYear;
+		this.milage = milage;
+		this.model = model;
+	}
 	
+	public Car (String registrationNr, Integer constructionYear, Integer milage, String model, Station location) {
+		this.registrationNr = registrationNr;
+		this.constructionYear = constructionYear;
+		this.milage = milage;
+		this.model = model;
+		this.location = location;
+	}
+	
+	@Override
+	public String toString () {
+		return "Car{" +
+				"registrationNr='" + registrationNr + '\'' +
+				", constructionYear=" + constructionYear +
+				", milage=" + milage +
+				", model='" + model + '\'' +
+				", location=" + location +
+				'}';
+	}
 }

@@ -45,5 +45,35 @@ public class Rental {
 	@JoinColumn(name = "rent_return_st")
 	private Station returnStation;
 	
+	public Rental (Integer km, LocalDate rentalDate, Car car, Customer driver, Station rentalStation) {
+		this.km = km;
+		this.rentalDate = rentalDate;
+		this.car = car;
+		this.driver = driver;
+		this.rentalStation = rentalStation;
+	}
 	
+	public Rental (Integer km, LocalDate rentalDate, LocalDate returnDate, Car car, Customer driver, Station rentalStation, Station returnStation) {
+		this.km = km;
+		this.rentalDate = rentalDate;
+		this.returnDate = returnDate;
+		this.car = car;
+		this.driver = driver;
+		this.rentalStation = rentalStation;
+		this.returnStation = returnStation;
+	}
+	
+	@Override
+	public String toString () {
+		return "Rental{" +
+				"id=" + id +
+				", km=" + km +
+				", rentalDate=" + rentalDate +
+				", returnDate=" + returnDate +
+				", car=" + car +
+				", driver=" + driver +
+				", rentalStation=" + rentalStation +
+				", returnStation=" + returnStation +
+				'}';
+	}
 }

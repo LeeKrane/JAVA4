@@ -27,5 +27,18 @@ public class Customer {
 	@Column(name = "cust_first_name")
 	private String firstName;
 	
+	public Customer (Integer id, String lastName, String firstName) {
+		this.id = id;
+		this.lastName = lastName;
+		this.firstName = firstName;
+	}
 	
+	@Override
+	public String toString () {
+		return "Customer{" +
+				"id=" + id +
+				", lastName='" + lastName + '\'' +
+				", firstName='" + firstName + '\'' +
+				'}';
+	}
 }
