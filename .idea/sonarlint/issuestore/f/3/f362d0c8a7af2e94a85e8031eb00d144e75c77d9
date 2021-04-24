@@ -1,0 +1,7 @@
+
+j	java:S100i"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ύ΄έχ8ώ½Τ±/
+J
+java:S1144"-Remove this unused private "oneToOne" method.(Ή•Λ‹8ώ½Τ±/
+J
+java:S1144".Remove this unused private "oneToMany" method.(£ÿ΅8ώ½Τ±/
+X	java:S125"<This block of commented-out lines of code should be removed.(ΈΎ­8ώ½Τ±/

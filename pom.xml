@@ -6,7 +6,13 @@
 
     <groupId>at.ac.htlstp</groupId>
     <artifactId>JAVA4</artifactId>
+    <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <modules>
+        <module>Labor11</module>
+        <module>Labor12</module>
+        <module>Labor11</module>
+    </modules>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
