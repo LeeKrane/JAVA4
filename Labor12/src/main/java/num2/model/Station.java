@@ -1,5 +1,6 @@
 package num2.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Setter
 @Getter
+@EqualsAndHashCode
 @Entity
 @Table(name = "station")
 public class Station {

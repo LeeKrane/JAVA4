@@ -1,5 +1,6 @@
 package num2.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -13,6 +14,7 @@ import javax.persistence.Table;
 @NoArgsConstructor
 @Setter
 @Getter
+@EqualsAndHashCode
 @Entity
 @Table(name = "customer")
 public class Customer {

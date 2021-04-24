@@ -111,24 +111,76 @@ public class Repository implements AutoCloseable {
 	// liefert true bei Erfolg, false bei einem Fehler
 	public boolean returnCar (Rental rental, Station returnStation, LocalDate returnDate, Integer km) {
 		EntityManager em = db.JPAUtil.getEMF().createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		
 		try {
-			return 0 < em.createQuery("""
-					update Rental
-					set returnStation = :retSt, returnDate = :retDate, km = :km
-					where id = :id
-					""")
-					.setParameter("retSt", returnStation)
-					.setParameter("retDate", returnDate)
-					.setParameter("km", km)
-					.setParameter("id", rental.getId())
-					.executeUpdate()
-				&& 0 < em.createQuery("""
-					update Car
-					set location = :retSt
+			tx.begin();
+			rental.returnCar(km, returnStation, returnDate);
+			em.merge(rental);
+			em.merge(rental.getCar());
+			tx.commit();
+			return true;
+		} catch (Exception ex) {
+			if (tx.isActive()) {
+				tx.rollback();
+			}
+			return false;
+		} finally {
+			em.close();
+		}
+	}
+	
+	public Car findCarByRegNr (String registrationNr) {
+		EntityManager em = db.JPAUtil.getEMF().createEntityManager();
+		try {
+			return em.createQuery("""
+					select c from Car c
 					where registrationNr = :regNr
-					""")
-					.setParameter("regNr", rental.getCar().getRegistrationNr())
-					.executeUpdate();
+					""", Car.class)
+					.setParameter("regNr", registrationNr)
+					.getSingleResult();
+		} finally {
+			em.close();
+		}
+	}
+	
+	public Rental findRentalById (Integer id) {
+		EntityManager em = db.JPAUtil.getEMF().createEntityManager();
+		try {
+			return em.createQuery("""
+					select r from Rental r
+					where id = :id
+					""", Rental.class)
+					.setParameter("id", id)
+					.getSingleResult();
+		} finally {
+			em.close();
+		}
+	}
+	
+	public Customer findCustomerById (Integer id) {
+		EntityManager em = db.JPAUtil.getEMF().createEntityManager();
+		try {
+			return em.createQuery("""
+					select c from Customer c
+					where id = :id
+					""", Customer.class)
+					.setParameter("id", id)
+					.getSingleResult();
+		} finally {
+			em.close();
+		}
+	}
+	
+	public Station findStationById (Integer id) {
+		EntityManager em = db.JPAUtil.getEMF().createEntityManager();
+		try {
+			return em.createQuery("""
+					select s from Station s
+					where id = :id
+					""", Station.class)
+					.setParameter("id", id)
+					.getSingleResult();
 		} finally {
 			em.close();
 		}

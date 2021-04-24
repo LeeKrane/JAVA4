@@ -1,5 +1,6 @@
 package num2.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -12,6 +13,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @Entity
 @Table(name = "car")
 public class Car {
@@ -60,5 +62,10 @@ public class Car {
 				", model='" + model + '\'' +
 				", location=" + location +
 				'}';
+	}
+	
+	public void returnCar (Station returnStation, Integer km) {
+		location = returnStation;
+		milage += km;
 	}
 }

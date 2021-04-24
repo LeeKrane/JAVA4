@@ -1,5 +1,6 @@
 package num2.model;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Setter
+@EqualsAndHashCode
 @Entity
 @Table(name = "rental")
 public class Rental {
@@ -23,7 +25,7 @@ public class Rental {
 	@Positive
 	private Integer km;
 	
-	@Column(name = "rent_rental_date")
+	@Column(name = "rent_rental_date", nullable = false)
 	private LocalDate rentalDate;
 	
 	@Column(name = "rent_return_date")
@@ -45,8 +47,9 @@ public class Rental {
 	@JoinColumn(name = "rent_return_st")
 	private Station returnStation;
 	
-	public Rental (Integer km, LocalDate rentalDate, Car car, Customer driver, Station rentalStation) {
-		this.km = km;
+	public Rental (LocalDate rentalDate, Car car, Customer driver, Station rentalStation) {
+		if (car.getLocation() != null)
+			throw new IllegalArgumentException("The car is currently already rented!");
 		this.rentalDate = rentalDate;
 		this.car = car;
 		this.driver = driver;
@@ -61,6 +64,13 @@ public class Rental {
 		this.driver = driver;
 		this.rentalStation = rentalStation;
 		this.returnStation = returnStation;
+	}
+	
+	public void returnCar (Integer km, Station returnStation, LocalDate returnDate) {
+		this.km = km;
+		this.returnStation = returnStation;
+		this.returnDate = returnDate;
+		car.returnCar(returnStation, km);
 	}
 	
 	@Override

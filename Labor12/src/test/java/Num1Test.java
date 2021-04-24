@@ -52,6 +52,7 @@ public class Num1Test {
 		assertEquals(1, runner.size());
 		assertEquals("Huber", runner.get(0).getLastName());
 	}
+	
 	// Testfall: testet DAO.longRun(10000)
 	// Liefert eine Liste mit zwei L¨aufern
 	@Test
@@ -59,6 +60,7 @@ public class Num1Test {
 		List<Runner> runner = rep.longRun(10000);
 		assertEquals(2, runner.size());
 	}
+	
 	// Testfall: testet DAO.longRun(50000)
 	// Liefert eine leere Liste
 	@Test
@@ -66,6 +68,7 @@ public class Num1Test {
 		List<Runner> runner = rep.longRun(50000);
 		assertTrue(runner.isEmpty());
 	}
+	
 	// Testfall: testet DAO.longRun(-10000)
 	// Erwartetes Ergebnis: wirft eine IllegalArgumentException
 	@Test
@@ -73,6 +76,7 @@ public class Num1Test {
 		assertThrows(IllegalArgumentException.class,
 					 () -> rep.longRun(-10000));
 	}
+	
 	// Testfall: liefert die Gesamtstrecke des L¨aufers mit der ID 1 im Juli 2019
 	// Erwartetes Ergebnis: 36000
 	@Test
