@@ -57,7 +57,6 @@ public class Rental {
 		car.rentCar(this);
 	}
 	
-	// This constructor is for testing purposes only
 	public Rental (Integer km, LocalDate rentalDate, LocalDate returnDate, Car car, Customer driver, Station returnStation) {
 		if (car.getLocation() == null)
 			throw new IllegalArgumentException("The car is currently already rented!");
