@@ -47,23 +47,30 @@ public class Rental {
 	@JoinColumn(name = "rent_return_st")
 	private Station returnStation;
 	
-	public Rental (LocalDate rentalDate, Car car, Customer driver, Station rentalStation) {
-		if (car.getLocation() != null)
+	public Rental (LocalDate rentalDate, Car car, Customer driver) {
+		if (car.getLocation() == null)
 			throw new IllegalArgumentException("The car is currently already rented!");
 		this.rentalDate = rentalDate;
 		this.car = car;
 		this.driver = driver;
-		this.rentalStation = rentalStation;
+		this.rentalStation = car.getLocation();
+		car.rentCar(this);
 	}
 	
-	public Rental (Integer km, LocalDate rentalDate, LocalDate returnDate, Car car, Customer driver, Station rentalStation, Station returnStation) {
-		this.km = km;
+	// This constructor is for testing purposes only
+	public Rental (Integer km, LocalDate rentalDate, LocalDate returnDate, Car car, Customer driver, Station returnStation) {
+		if (car.getLocation() == null)
+			throw new IllegalArgumentException("The car is currently already rented!");
 		this.rentalDate = rentalDate;
-		this.returnDate = returnDate;
 		this.car = car;
 		this.driver = driver;
-		this.rentalStation = rentalStation;
-		this.returnStation = returnStation;
+		this.rentalStation = car.getLocation();
+		rentCar();
+		returnCar(km, returnStation, returnDate);
+	}
+	
+	public void rentCar () {
+		car.rentCar(this);
 	}
 	
 	public void returnCar (Integer km, Station returnStation, LocalDate returnDate) {

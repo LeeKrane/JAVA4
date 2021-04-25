@@ -38,19 +38,22 @@ public class Car {
 	@OneToMany(mappedBy = "car")
 	private List<Rental> rentals = new ArrayList<>();
 	
-	public Car (String registrationNr, Integer constructionYear, Integer milage, String model) {
-		this.registrationNr = registrationNr;
-		this.constructionYear = constructionYear;
-		this.milage = milage;
-		this.model = model;
-	}
-	
 	public Car (String registrationNr, Integer constructionYear, Integer milage, String model, Station location) {
 		this.registrationNr = registrationNr;
 		this.constructionYear = constructionYear;
 		this.milage = milage;
 		this.model = model;
 		this.location = location;
+	}
+	
+	public void rentCar (Rental rental) {
+		rentals.add(rental);
+		location = null;
+	}
+	
+	public void returnCar (Station returnStation, Integer km) {
+		location = returnStation;
+		milage += km;
 	}
 	
 	@Override
@@ -62,10 +65,5 @@ public class Car {
 				", model='" + model + '\'' +
 				", location=" + location +
 				'}';
-	}
-	
-	public void returnCar (Station returnStation, Integer km) {
-		location = returnStation;
-		milage += km;
 	}
 }

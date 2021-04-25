@@ -41,8 +41,8 @@ public class Num2Test {
 				new Car("JN1CV6EK0DM950520", 1997, 7885, "Yukon", stations[1]),
 				new Car("JTJBC1BA9E2912808", 2011, 2223, "CX-9", stations[0]),
 				new Car("WBAEW53483P079071", 2003, 1554, "Lancer Evolution", stations[0]),
-				new Car("5N1AR2MM0EC864129", 1994, 5633, "Concorde"),
-				new Car("1FMEU5BE6AU861265", 2012, 4005, "ZDX")
+				new Car("5N1AR2MM0EC864129", 1994, 5633, "Concorde", stations[1]),
+				new Car("1FMEU5BE6AU861265", 2012, 4005, "ZDX", stations[0])
 		};
 		
 		Customer[] customers = new Customer[]{
@@ -52,28 +52,28 @@ public class Num2Test {
 		};
 		
 		Rental[] rentals = new Rental[]{
-				new Rental(214, LocalDate.of(2020, 10, 10), LocalDate.of(2020, 11, 27), cars[0], customers[0], stations[1], stations[0]),
-				new Rental(178, LocalDate.of(2020, 11, 30), LocalDate.of(2021, 2, 21), cars[1], customers[1], stations[0], stations[1]),
-				new Rental(124, LocalDate.of(2021, 2, 1), LocalDate.of(2021, 3, 6), cars[2], customers[2], stations[2], stations[0]),
-				new Rental(LocalDate.of(2021, 5, 13), cars[8], customers[0], stations[1]),
-				new Rental(LocalDate.of(2021, 7, 15), cars[9], customers[1], stations[0])
+				new Rental(214, LocalDate.of(2020, 10, 10), LocalDate.of(2020, 11, 27), cars[0], customers[0], stations[1]),
+				new Rental(178, LocalDate.of(2020, 11, 30), LocalDate.of(2021, 2, 21), cars[1], customers[1], stations[0]),
+				new Rental(124, LocalDate.of(2021, 2, 1), LocalDate.of(2021, 3, 6), cars[2], customers[2], stations[2]),
+				new Rental(LocalDate.of(2021, 5, 13), cars[8], customers[0]),
+				new Rental(LocalDate.of(2021, 7, 15), cars[9], customers[1])
 		};
 		
 		for (Station s : stations)
-			rep.insertStation(s);
+			assertTrue(rep.insertStation(s));
 		
 		for (Car c : cars)
-			rep.insertCar(c);
+			assertTrue(rep.insertCar(c));
 		
 		for (Customer c : customers)
-			rep.insertCustomer(c);
+			assertTrue(rep.insertCustomer(c));
 		
 		for (Rental r : rentals)
-			rep.insertRental(r);
+			assertTrue(rep.insertRental(r));
 	}
 	
 	@ParameterizedTest
-	@CsvSource({"1,5", "2,3", "3,0"})
+	@CsvSource({"1,4", "2,3", "3,1"})
 	void findCarsByStation_correctListLengths (int stationId, int expectedLength) {
 		List<Car> cars = rep.findCarsByStation(rep.findStationById(stationId));
 		assertEquals(expectedLength, cars.size());
@@ -97,5 +97,13 @@ public class Num2Test {
 		
 		assertEquals(station, car.getLocation());
 		assertEquals(station, rental.getReturnStation());
+	}
+	
+	@Test
+	void insertX_successfulPersisting () {
+		assertTrue(rep.insertStation(new Station("Test")));
+		assertTrue(rep.insertCar(new Car("Test", 1234, 123, "Test", rep.findStationById(4))));
+		assertTrue(rep.insertCustomer(new Customer(187265, "Test", "Test")));
+		assertTrue(rep.insertRental(new Rental(LocalDate.of(2000, 1, 1), rep.findCarByRegNr("Test"), rep.findCustomerById(187265))));
 	}
 }

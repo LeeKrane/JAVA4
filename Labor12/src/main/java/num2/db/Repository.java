@@ -135,7 +135,7 @@ public class Repository implements AutoCloseable {
 		try {
 			return em.createQuery("""
 					select c from Car c
-					where registrationNr = :regNr
+					where c.registrationNr = :regNr
 					""", Car.class)
 					.setParameter("regNr", registrationNr)
 					.getSingleResult();
@@ -149,7 +149,7 @@ public class Repository implements AutoCloseable {
 		try {
 			return em.createQuery("""
 					select r from Rental r
-					where id = :id
+					where r.id = :id
 					""", Rental.class)
 					.setParameter("id", id)
 					.getSingleResult();
@@ -163,7 +163,7 @@ public class Repository implements AutoCloseable {
 		try {
 			return em.createQuery("""
 					select c from Customer c
-					where id = :id
+					where c.id = :id
 					""", Customer.class)
 					.setParameter("id", id)
 					.getSingleResult();
@@ -177,7 +177,7 @@ public class Repository implements AutoCloseable {
 		try {
 			return em.createQuery("""
 					select s from Station s
-					where id = :id
+					where s.id = :id
 					""", Station.class)
 					.setParameter("id", id)
 					.getSingleResult();
