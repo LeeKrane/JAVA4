@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Labor11" />
         <module name="Labor12" />
+        <module name="Labor13" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
