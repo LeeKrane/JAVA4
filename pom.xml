@@ -19,29 +19,29 @@
         <maven.compiler.release>15</maven.compiler.release>
         <maven.compiler.target>15</maven.compiler.target>
         <maven.compiler.source>15</maven.compiler.source>
-        <javaFxVersion>15.0.1</javaFxVersion>
+        <javaVersion>15.0.1</javaVersion>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
-            <version>${javaFxVersion}</version>
+            <version>${javaVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>${javaFxVersion}</version>
+            <version>${javaVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-graphics</artifactId>
-            <version>${javaFxVersion}</version>
+            <version>${javaVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>${javaFxVersion}</version>
+            <version>${javaVersion}</version>
         </dependency>
         <dependency>
             <groupId>org.testfx</groupId>
