@@ -33,14 +33,6 @@ public class Repository implements AutoCloseable {
 		
 		try {
 			tx.begin();
-			if (toPersist instanceof Employee) {
-				for (Answer answer : ((Employee) toPersist).getAnswers())
-					em.persist(em.merge(answer));
-			}
-			if (toPersist instanceof Question) {
-				for (Answer answer : ((Question) toPersist).getAnswers())
-					em.persist(em.merge(answer));
-			}
 			em.persist(toPersist);
 			tx.commit();
 		} catch (Exception ex) {
