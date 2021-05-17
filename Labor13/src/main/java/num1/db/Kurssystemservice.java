@@ -28,8 +28,8 @@ public class Kurssystemservice implements IKurssystemService {
 	
 	@Override
 	public void deleteKunde (Kunde k) throws KursDBException {
-		if (k.getKundeId() != null)
-			throw new IllegalArgumentException("The Kunde ID must not be null!");
+		// if (k.getKundeId() != null)
+		//	throw new IllegalArgumentException("The Kunde ID must not be null!");
 		KundeRepository.getINSTANCE().delete(k);
 	}
 	
@@ -65,8 +65,8 @@ public class Kurssystemservice implements IKurssystemService {
 	
 	@Override
 	public List<Kunde> getKundenFromKurs (Kurs kurs) throws KursDBException {
-		if (kurs.getKursId() != null)
-			throw new IllegalArgumentException("The Kurs ID must not be null!");
+		// if (kurs.getKursId() != null)
+		//	throw new IllegalArgumentException("The Kurs ID must not be null!");
 		return KundeRepository.getINSTANCE().getKundenByKurs(kurs);
 	}
 	
